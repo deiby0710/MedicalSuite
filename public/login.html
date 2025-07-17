@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='utf-8'>
+    <meta name="google" content="notranslate">
+
+    <link rel="icon" href="../img/P.png">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Inicio Sesión</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* Estilo para el contenedor del logo superior */
+        .logo-container {
+            display: flex; /* Utiliza Flexbox para centrar */
+            justify-content: center; /* Centra horizontalmente */
+            margin-top: -20px; /* Espacio desde la parte superior */
+        }
+
+        .logo1 {
+            width: 280px; /* Ajusta el tamaño según sea necesario */
+            animation: bounce 1.1s ease forwards;
+        }
+
+
+        /* Estilos para el logo dentro del formulario */
+        .logo {
+            width: 100%; /*Ajusta el tamaño según sea necesario */
+            margin-bottom: 20px; /* Espacio debajo del logo */
+        }
+
+        /* Otros estilos según tu diseño */
+    </style>
+</head>
+<body>
+    <!-- Contenedor para el logo superior -->
+    <div class="logo-container">
+        <img src="../img/principal1.png" alt="Vini" class="logo1"> <!-- Logo centrado arriba -->
+    </div>
+    <div class="login-form">
+        <img src="../img/NewLogo.png" alt="Vini" class="logo"> <!-- Logo más pequeño dentro del formulario -->
+        <form id="loginForm" method="POST" action="/login"> <!-- Acción POST para login -->
+            <div class="form-group">
+                <input type="text" class="form-control campo-text" placeholder="Username" name="username" id="UserName" required>
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="form-group log-status">
+                <input type="password" class="form-control campo-text" placeholder="Password" name="password" id="contra" required>
+                <i class="fa fa-lock"></i>
+            </div>
+            <!-- Mostrar mensaje de error si hay fallo -->
+            <div id="response">
+                <!-- Este mensaje se mostrará en caso de error -->
+                <p id="error-message" style="color: red; display: none;">Usuario o contraseña incorrectos.</p>
+            </div>
+            <div class="btn_box">
+                <button type="submit" class="log-btn">Iniciar sesión</button>
+            </div>
+        </form>
+    </div>
+    <h1>MUNICIPIOS, MARIDIAZ Y FATIMA</h1>
+
+    <script>
+        // Aquí se maneja el envío del formulario y el manejo del mensaje de error
+        function getParameterByName(name) {
+            const url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                  results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Comprobar si existe el parámetro "error" en la URL
+        const error = getParameterByName('error');
+
+        // Mostrar el mensaje de error si el parámetro está presente
+        if (error === 'true') {
+            document.getElementById('error-message').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

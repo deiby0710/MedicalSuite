@@ -1,0 +1,3147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="../img/P.png">
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GENHOSPI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div class="user" id="username">
+    </div>
+    <div class="div-btn-back">
+        <button class="btn-back btn-dark consu" onclick="goBack()">
+            <i class="fa-solid fa-house"></i>
+        </buttton>
+    </div>
+    <div class="container mt-3">
+        <div class="div_botones d-flex justify-content-between consu">
+            <div class="btn-group">
+                <button id="facturacion-btn" class="btn-success btn-custom-1">Facturación Entregada</button>
+                <button id="agregar-paciente-btn-1" class="btn-success btn-custom-1">Agregar Paciente</button>
+                <button id="usuarios-btn" class="btn-success btn-custom-1">Gestión Usuarios</button>
+                <button id="consulta-btn" class="btn-success btn-custom-1">Consulta Entregados</button>
+            </div>
+                <!-- Botón para generar reporte -->
+            <div class="btn-group">
+                <button id="generar-reporte" class="btn-success btn-custom-1 last-btn"
+                    onclick="mostrarOpciones()">Generar Reporte</button>
+                <button id="logoutButton" class="log-btn btn-danger">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div><br>
+        <h1 class="text-center text-dark mb-6 consu" id="texto_principal">Datos Afiliado</h1>
+        <div class="formulario_principal" id="id_formulario_principal">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row align-items-center" style="margin: 0; padding: 0;">
+                        <!-- Columna izquierda con la imagen -->
+                        <div class="col-md-4 text-left" style="padding: 5px;">
+                            <img src="../img/logo.png" alt="Vini" class="logo1" style="width: 250px; height: auto;">
+                        </div>
+                        <!-- Columna central con el texto -->
+                        <div class="col-md-4 text-center" style="padding: 10px;">
+                            <h4 style="font-size: 15px;" class="m-0">ACTA DE ENTREGA DE MEDICAMENTOS Y/O INSUMOS</h4>
+                        </div>
+                        <!-- Columna derecha con el título -->
+                        <div class="col-md-4 text-center" style="padding: 10px;">
+                            <h4 style="font-size: 15px;" class="m-0">Número del Entregado</h4>
+                            <input type="text" id="numero-entregado" class="form-control form-entregado" style="width: 200px; margin: 0 auto;" required readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 text-center">
+                        <h4 style="font-size: 15px;"> Por medio de la presente se evidencia la dispensación (entrega
+                            informada) de los medicamentos siguientes:</h4></br>
+                    </div>
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Identificación</th>
+                                <th class="text-center">Tipo ID</th>
+                                <th class="text-center">Paciente</th>
+                                <th class="text-center">Celular</th>
+                                <th class="text-center">EPS</th>
+                                <th class="text-center">Municipio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date" id="fecha_solicitud" class="form-control" onkeydown="return false;"></td>
+                                <td><input type="text" class="form-control identificacion" id="identificacionId"
+                                        required></td>
+                                <td><input type="text" class="form-control form-id" id="tipoIdentificacionId" readonly>
+                                </td>
+                                <td><input type="text" id="nombrePaciente" class="form-control form-paciente" readonly>
+                                </td>
+                                <td><input type="text" id="celular1" class="form-control form-telefono"></td>
+                                <td><input type="text" id="eps" maxlength="50" class="form-control form-eps" readonly>
+                                </td>
+                                <td><input type="text" id="municipio" class="form-control"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Modalidad</th>
+                                <th class="text-center">Nº Autorización Mipres</th>
+                                <th class="text-center">Código Mipres</th>
+                                <th class="text-center">Nº Autorización</th>
+                                <th class="text-center">Nº Validación PGP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="modalidad">
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        <option value="CAPITA">CAPITA</option>
+                                        <option value="EVENTO">EVENTO</option>
+                                        <option value="PGP">PGP</option>
+                                        <option value="MIPRES">MIPRES</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input id="NumAutorizacionMipres" name="NumAutorizacionMipres" type="number" class="form-control form-inline-input" disabled>
+                                </td>
+                                <td>
+                                    <input id="CodigoMipres" name="sede" type="number" class="form-control form-inline-input" disabled>
+                                </td>
+                                <td>
+                                    <input id="NumAutorizacion" name="sede" type="number" class="form-control form-inline-input" disabled>
+                                </td>
+                                <td>
+                                    <input id="NumValidacionPGP" name="ValidacionPGP" type="number" class="form-control form-inline-input" disabled>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Régimen</th>
+                                <th class="text-center">Copago / Cuota Moderadora</th>
+                                <th class="text-center">Valor</th>
+                                <th class="text-center">Rango</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select id="regimen" name="regimen" class="form-control form-inline-input" required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        <option value="CONTRIBUTIVO">CONTRIBUTIVO</option>
+                                        <option value="SUBSIDIADO">SUBSIDIADO</option>
+                                    </select>
+                                </td>
+                                <td class="w-50">
+                                    <select class="form-control" id="copagoLista" disabled>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        <option value="COPAGO">COPAGO</option>
+                                        <option value="CUOTA MODERADORA">CUOTA MODERADORA</option>
+                                        <option value="SUBSIDIADO" class="d-none"></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input id="valorCopago" name="valor" type="text" class="form-control form-inline-input" readonly>
+                                </td>
+                                <td>
+                                    <input id="rango" name="rando" type="text" class="form-control form-inline-input" readonly>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Punto</th>
+                                <th class="text-center">Fecha Fórmula</th>
+                                <th class="text-center">Nº Fórmula</th>
+                                <th class="text-center">Código Diagnóstico</th>
+                                <th class="text-center w-50">Diagnóstico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input id="sede" name="sede" type="text" class="form-control form-inline-input" readonly>
+                                </td>
+                                <td><input type="date" class="form-control" id="fechaFormula" onkeydown="return false;"
+                                    min="2024-01-01"></td>
+                                <td><input type="number" id="numeroFormula" maxlength="50" class="form-control"></td>
+                                <td><input type="text" id="codigoDiagnostico" class="form-control diagnostico" maxlength="4"></td>
+                                <td><input type="text" id="nombreDiagnostico" class="form-control form-nombre-diagnostico"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr style="border: 1,7px solid black; margin: 15px;" class="no-print">
+            <div class="row no-print">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Nombre Genérico</th>
+                                <th class="text-center">Laboratorio</th>
+                                <th class="text-center">Nombre Comercial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input class="form-control form-prod awesomplete" type="text" id="medicamento" placeholder="Escribe un medicamento..." autocomplete="off" style="display: block;"/>
+                                </td>
+                                <td class=""><input type="text" id="laboratorio" class="form-control" readonly></td>
+                                <td><input type="text" id="nombre_comercial" class="form-control"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row no-print">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Forma Farmacéutica</th>
+                                <th class="text-center">Fecha Vencimiento</th>
+                                <th class="text-center">Lote</th>
+                                <th class="text-center">Cantidad Prescrita</th>
+                                <th class="text-center">Cantidad Dispensada</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="forma_farmaceutica" class="form-control"></td>
+                                <td><input type="date" class="form-control" id="fecha_vencimiento"
+                                        onkeydown="return false;" min="2024-01-01"></td>
+                                <td><input type="text" id="lote" class="form-control"></td>
+                                <td><input type="number" id="cantidad_prescrita" maxlength="4" class="form-control" oninput='validarPrescritoDispensado()'></td>
+                                <td><input type="number" id="cantidad_dispensada" class="form-control w-100 ml-1" oninput='validarPrescritoDispensado()'
+                                        required></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="row no-print">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Observación</th>
+                            </tr>
+                            <tr>
+                                <th class=""><input type="text" id="observacion" class="form-control"></th>
+                                <th class="d-flex">
+                                    <button type="submit" id="btn_añadir" class="btn btn-custom btn-block ml-2 w-100">Añadir</button>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h6 style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">Entregados</h6>
+                    </div>
+                    <table class="table table-bordered" style="border: 1px solid #0fba70;">
+                        <thead class="bg-success text-white text-center">
+                            <tr class="black_color">
+                                <th class="w-25">Nombre Genérico</th>
+                                <th>Laboratorio</th>
+                                <th>Nombre comercial</th>
+                                <th>Forma Farmacéutica</th>
+                                <th>Fecha Vencimiento</th>
+                                <th>Lote</th>
+                                <th>Observación</th>
+                                <th>Prescrita</th>
+                                <th class="bg-danger">Dispensado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-productos">
+                            <div id="tabla_resultado">
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Nueva tabla pendientes -->
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h6 style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">Pendientes Entregados</h6>
+                    </div>
+                    <table class="table table-bordered" style="border: 1px solid #0fba70;">
+                        <thead class="bg-success text-white text-center">
+                            <tr class="black_color">
+                                <th>Nº Pendiente</th>
+                                <th class="w-25">Fecha Registro</th>
+                                <th class="w-25">Fecha Formula</th>
+                                <th class="w-75">Medicamento</th>
+                                <th>Lote</th>
+                                <th>Tipo Entrega</th>
+                                <th>Sede pendiente</th>
+                                <th>Cantidad Prescrita</th>
+                                <th>Cantidad Pendiente</th>
+                                <th>Cantidad Entregada</th>
+
+                                <th style="background-color:#dc3545;color: white;">Cantidad Pendiente Final</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-productos-pendientes">
+                            <div id="tabla_resultado_pendientes">
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 100%;" class="d-flex justify-content-center align-items-center">
+                <button id="guardar-btn" class="btn btn-dark"
+                    style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">Guardar</button>
+                <button id="vaciar-btn" class="btn btn-dark ml-3" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);"
+                    disabled>Vaciar</button>
+            </div>
+            <div class="mt-2 ocultar imprimir">
+                <table class="table1 table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h4 class="px_letras">Se informa acerca del almacenamiento adecuado de medicamentos</h4>
+                            </td>
+                            <td>
+                                <h4 class="px_letras">&nbsp;</h4>
+                            </td>
+                            <td>
+                                <h4 class="px_letras">Se informa a cerca del uso adecuado de medicamentos (vìa de
+                                    administraciòn)</h4>
+                            </td>
+                            <td>
+                                <h4 class="px_letras">&nbsp;</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4 class="px_letras">Se informa acerca de la disposición final adecuada de los
+                                    medicamentos</h4>
+                            </td>
+                            <td>
+                                <h4 class="px_letras"></h4>
+                            </td>
+                            <td>
+                                <h4 class="px_letras">Se indaga al paciente acerca de posibles reacciones adversas</h4>
+                            </td>
+                            <td>
+                                <h4 class="px_letras"></h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <p class="texto-justificado">
+                                    El abajo firmante, mayor de edad, declara bajo la gravedad del juramento, que todos
+                                    los documentos que suministro, son auténticos y que su contenido es veraz. En
+                                    consecuencia, manifiesto que soy consciente de que, en el evento de que la
+                                    información en ellos contenida no estuviera ceñida a la verdad, afrontaré las
+                                    acciones legales correspondientes en mi contra, entre ellas, la denuncia penal
+                                    correspondiente ante la Fiscalía General de la Nación por parte de Genhospi S.A.S.
+                                    y/o sus afiliados. Por consiguiente, me hago responsable de que la totalidad de la
+                                    documentación que en esta fecha aporto es fiel a la realidad, que no ha sido
+                                    manipulada ni editada y, por ende, libero de cualquier responsabilidad a la empresa
+                                    que me suministra lo entregado. Finalmente, manifiesto que los medicamentos, e
+                                    insumos que me han sido entregados, están dirigidos directamente a la persona que
+                                    los requiere y que los mismos no van a ser vendidos ni usados con otras finalidades
+                                    ilegales.
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table1 table-bordered w-100">
+                    <colgroup>
+                        <col style="width: 25%;">
+                        <col style="width: 10%;">
+                        <col style="width: 35%;">
+                        <col style="width: 10%;">
+                        <col style="width: 20%;">
+                    </colgroup>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <h4 class="px_letras">Quien Entrega</h4>
+                        </td>
+                        <td colspan="2" class="text-center">
+                            <h4 class="px_letras">Quien Recibe</h4>
+                        </td>
+                        <td rowspan="3" class="text-center align-top">
+                            <h4 class="px_letras">Huella</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="quien_entrega" style="text-align: center;">
+                        </td>
+                        <td colspan="2">
+                            <p>Firma</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Entrega en punto de dispensación</td>
+                        <td></td>
+                        <td colspan="2">Nombre Completo</td>
+                    </tr>
+                    <tr>
+                        <td>Entrega en domicilio paciente</td>
+                        <td></td>
+                        <td>D. Identificación</td>
+                        <td>Celular</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="pendientesResult">
+
+        </div>
+
+        <!-- --------------------------------------------------------------------------------------------------------------- -->
+        <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+    </div>
+    <!-- Modal de éxito -->
+    <div id="successModal" style="display:none;">
+        <div
+            style="background: white; padding: 20px; border-radius: 5px; width: 300px; margin: auto; position: relative; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); display: flex; align-items: center; flex-direction: column;">
+            <p id="modalMessage" style="text-align: center;">Datos guardados correctamente.</p>
+            <button id="closeModal"
+                style="background: #0ac150; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Aceptar</button>
+        </div>
+    </div>
+
+    <div id="modalEntregados" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="contenidoModal"></div>
+        </div>
+    </div>
+
+    <div id="agregar_usuario" class="container mt-3" style="display: none;">
+        <div class="formulario_principal">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Identificación</th>
+                                <th class="text-center">Tipo ID</th>
+                                <th class="text-center">Paciente</th>
+                                <th class="text-center">Celular</th>
+                                <th class="text-center">EPS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="form-control" id="Aidentificacion" required></td>
+                                <td>
+                                    <select id="AtipoIdentificacion" name="tipoIdentificacion"
+                                        class="form-control form-inline-input" required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        <option value="CC">CC</option>
+                                        <option value="TI">TI</option>
+                                        <option value="AS">AS</option>
+                                        <option value="CE">CE</option>
+                                        <option value="CN">CN</option>
+                                        <option value="MS">MS</option>
+                                        <option value="NI">NI</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PT">PT</option>
+                                        <option value="RC">RC</option>
+                                        <option value="SC">SC</option>
+
+                                    </select>
+                                </td>
+                                <td><input type="text" id="AnombrePaciente" class="form-control form-paciente" required
+                                        oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');"></td>
+                                <td><input type="number" id="Acelular1" class="form-control form-telefono" required>
+                                </td>
+                                <td>
+                                    <select id="Aeps" name="plan" class="form-control form-eps form-inline-input"
+                                        required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        <option value="EMSSANAR EPS SAS">EMSSANAR EPS SAS</option>
+                                        <option value="MALLAMAS EPS">MALLAMAS EPS</option>
+                                        <option value="SANITAS EPS">SANITAS EPS</option>
+                                        <option value="ASMET SALUD EPS">ASMET SALUD EPS</option>
+                                        <option value="SOS SALUD">SOS SALUD</option>
+                                    </select>
+                                </td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button id="agregar-paciente-btn" class="btn btn-custom">Agregar Paciente</button>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="text_agregar_usuario_SU" class="text-center text-dark mb-6 consu" style="display: none;">Agregar Usuario
+    </h2>
+    <div id="agregar_usuario_SU" class="container mt-3" style="display: none;">
+        <div class="formulario_principal">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Identificación</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Password</th>
+                                <th class="text-center">sede</th>
+                                <th class="text-center">Rol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="form-control" id="AU_identificacion" required></td>
+                                <td><input type="text" class="form-control" id="AU_nombre" required></td>
+                                <td><input type="text" class="form-control" id="AU_username" required></td>
+                                <td><input type="text" class="form-control" id="AU_password" required></td>
+                                <td>
+                                    <input class="form-control" type="text" id="AU_sede"
+                                        placeholder="Escribe una sede..." list="sedes_lista" autocomplete="off">
+                                    <ul id="sedes_lista" class="sede-list"></ul>
+                                </td>
+                                <td>
+                                    <select id="AU_rol" class="form-control form-eps form-inline-input" required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        <option value="user">Usuario</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
+                                </td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button id="agregar-usuario-btn" class="btn btn-custom">Agregar Usuario</button>
+            </div>
+        </div>
+    </div>
+    <h2 id="text_actualizar_usuario_SU" class="text-center text-dark mb-6 consu"
+        style="display:none; text-shadow:  2px 2px 0px #2daf63,   
+    4px 4px 0px rgba(0, 0, 0, 0.2); ; ;font-size: 39px;">Actualizar Usuario</h2>
+    <div id="actualizar_usuario_SU" class="container mt-3" style="display: none;">
+        <div class="formulario_principal">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Identificación</th>
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Sede</th>
+                                <th class="text-center">Nueva Sede</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" id="AU_identificacion_buscar"
+                                        placeholder="Escribe una identificación" required>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="AU_username1" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="AU_sede1" readonly>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" id="AU_sede2"
+                                        placeholder="Escribe una nueva sede..." list="sedes_lista1" autocomplete="off">
+                                    <ul id="sedes_lista1" class="sede-list"></ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button id="actualizar-usuario-btn" class="btn btn-custom">Actualizar Sede</button>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="text_agregar_medicamento_SU" class="text-center text-dark mb-6 consu"
+    style="display:none; text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);font-size: 39px;">Agregar
+        Medicamento</h2>
+    <div id="agregar_medicamento_SU" class="container mt-3" style="display: none;">
+        <div class="formulario_principal">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Laboratorio</th>
+                                <th class="text-center">Tipo producto</th>
+                                <th class="text-center">Cobertura</th>
+                                <th class="text-center">Cum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                             
+                                <td><input type="text" class="form-control" id="AM_nombre" required></td>
+                                <td><input type="text" class="form-control" id="AM_laboratorio" required></td>
+                                <td>
+                                    <select id="AM_tipo_producto" class="form-control form-inline-input" required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        <option value="ALIMENTOS">Alimentos</option>
+                                        <option value="MEDICAMENTO">Medicamento</option>
+                                        <option value="ASEO Y LIMPIEZA">Aseo y limpieza</option>
+                                        <option value="COSMETICO">Cosmetico</option>
+                                        <option value="DISPOSITIVO MEDICO">Dispositivo medico</option>
+                                        <option value="INSUMO">Insumo</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" id="AM_cobertura" class="form-control" required value="PBS"></td>
+                                <td><input type="text" id="AM_cum" class="form-control form-telefono" required></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button id="agregar-medicamento-btn" class="btn btn-custom" style="width: 12rem;">Agregar
+                    Medicamento</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="consulta_usuario" class="container">
+        <form id="form_consultar" class="mb-3 d-flex mb-3 justify-content-center align-items-center consu">
+            <input type="text" id="identificacion_c" name="identificacion" class="form-control w-25"
+                placeholder="Ingrese la identificación">
+            <button type="submit" id="btn_buscar" class="btn btn-dark ml-2"
+                style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">Buscar</button>
+        </form>
+    </div>
+
+    <div>
+        <div id="result" class="result" style="display: none;"></div>
+        <!-- Aquí se mostrarán los datos del paciente -->
+    </div>
+
+    <div id="entregadosResult" class="pendientes-result"></div>
+    <!-- Aquí se mostrarán los datos de la tabla entregados -->
+    </div>
+    </div>
+    <!-- Modal Fecha Vencimiento Y lote-->
+    <div id="modal-lote-fecha" class="div_padre_modal_lote_fecha">
+        <!-- <div style="background: white; padding: 20px; border-radius: 5px; width: 300px;"> -->
+        <div class="div_modal_lote_fecha">
+            <h3>Agregar Información</h3>
+            <form id="form-lote-fecha">
+                <div class="d-inline">
+                    <h6>Lote</h6>
+                    <input type="text" id="lote_modal" name="lote_modal" class="form-control w-100 mb-3" placeholder="Lote"
+                        required>
+                </div>
+                <div>
+                    <h6>Fecha de vencimiento</h6>
+                    <input type="date" id="fechaVencimiento_modal" name="fechaVencimiento_modal" class="form-control"
+                        onkeydown="return false;" min="2024-01-01" required>
+                </div>
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                    <button type="button" id="guardar" class="btn btn-custom w-50">Guardar</button>
+                    <button type="button" id="cancelar" class="btn btn-custom ml-2 w-50">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de opciones -->
+    <div id="modalOpciones" class="modal2" style="display: none; z-index: 9999;">
+        <div class="modal-content">
+            <h3>Selecciona una Opción</h3>
+            <button id="generar-reporte-btn">Generar Reporte Completo</button>
+            <button onclick="generarReporteHoy()">Generar Reporte del Día</button>
+            <button onclick="cerrarModal()">Cancelar</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username') || 'Sin nombre';
+    const sede = urlParams.get('sede') || 'Desconocida';
+    // Obtener el rol del usuario desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get('role');
+
+    // Mostrar el mensaje de bienvenida
+    document.getElementById('username').setAttribute('registradopor', username);
+    document.getElementById('username').innerText = `¡Bienvenid@ ${username} de la sede ${sede}!`;
+    document.getElementById('sede').value = `${sede}`;
+
+    // -----------------------------------------------------------------------
+    function goBack() {
+        window.history.back();
+    }
+    // -----------------------------------------------------------------------
+    document.getElementById('quien_entrega').innerHTML = `
+    <p style="font-size:12px;">${username}</p>
+    `
+    // -----------------------------------------------------------------------
+    // Limitamos el numero de celular a maximo 10 caracteres
+    c1 = document.getElementById('Acelular1');
+    function limitarCaracteres() {
+        if (this.value.length > 10) {
+            this.value = this.value.slice(0, 10); // Limita a 10 caracteres
+        }
+    };
+    c1.addEventListener('input', limitarCaracteres)
+
+    // -----------------------------------------------------------------------
+  
+    // Obtener el elemento input de fecha
+    const inputFecha = document.getElementById('fecha_solicitud');
+    
+    // Crear un objeto de fecha actual
+    const fechaActual = new Date();
+    
+    // Formatear la fecha en formato YYYY-MM-DD
+    const year = fechaActual.getFullYear();
+    const month = ('0' + (fechaActual.getMonth() + 1)).slice(-2); // Meses van de 0-11, por eso sumamos 1
+    const day = ('0' + fechaActual.getDate()).slice(-2);
+    
+    const fechaFormateada = `${year}-${month}-${day}`;
+    
+    // Asignar la fecha actual como valor y como máximo permitido
+    inputFecha.value = fechaFormateada;
+    inputFecha.setAttribute("max", fechaFormateada);
+
+    // -----------------------------------------------------------------------
+
+    
+    // Obtener el input de fecha
+    const inputFechaFormula = document.getElementById('fechaFormula');
+
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    const fechaActual2 = new Date().toISOString().split('T')[0];
+
+    // Establecer la fecha máxima permitida
+    inputFechaFormula.setAttribute("max", fechaActual2);
+
+        // -----------------------------------------------------------------------
+
+    
+    // Obtener el input de fecha
+    const inputFechaVencimiento = document.getElementById('fecha_vencimiento');
+
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    const fechaActual3 = new Date().toISOString().split('T')[0];
+
+    // Establecer la fecha máxima permitida
+    inputFechaVencimiento.setAttribute("min", fechaActual3);
+
+    // -----------------------------------------------------------------------
+
+    
+    // Obtener el input de fecha
+    const inputFechaVencimiento_modal = document.getElementById('fechaVencimiento_modal');
+
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    const fechaActual4 = new Date().toISOString().split('T')[0];
+
+    // Establecer la fecha máxima permitida
+    inputFechaVencimiento_modal.setAttribute("min", fechaActual4);
+
+    
+        // -----------------------------------------------------------------------
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const identificacionInput = document.querySelector('input.identificacion'); // Campo de identificación
+        const tipoIdInput = document.querySelector('.form-id'); // Campo tipo identificación
+        const pacienteInput = document.querySelector('.form-paciente'); // Campo primer nombre
+        const celularInput = document.querySelector('.form-telefono'); // Campo celular
+        const eps = document.querySelector('.form-eps'); // Campo eps
+
+        const diagnosticoInput = document.getElementById('codigoDiagnostico');
+        const nombreDiagnosticoInput = document.getElementById('nombreDiagnostico');
+
+        diagnosticoInput.addEventListener('blur', () => {
+        const idDiagnostico = diagnosticoInput.value.trim();
+        if (idDiagnostico) {
+            fetch(`/api/diagnostico?codigo=${idDiagnostico}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Diagnóstico no encontrado');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    nombreDiagnosticoInput.value = data.nombre || ''; // Llena el campo de nombre con el resultado
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    nombreDiagnosticoInput.value = ''; // Vacia el campo en caso de error
+                });
+            };
+        });
+
+        identificacionInput.addEventListener('blur', () => {
+            const numeroIdentificacion = identificacionInput.value.trim();
+            if (numeroIdentificacion) {
+                fetch(`/api/paciente?numeroIdentificacion=${numeroIdentificacion}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Paciente no encontrado');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        tipoIdInput.value = data.tipoIdentificacion || '';
+                        pacienteInput.value = data.primerNombre || '';
+                        celularInput.value = data.telefono || '';
+                        eps.value = data.eps || '';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Muestra un mensaje de error
+                        Swal.fire({
+                            title: "Paciente no Encontrado",
+                            text: "Registrar en Agregar Paciente",
+                            icon: "warning"
+                            })
+
+                        // Limpia los campos del formulario
+                        identificacionInput.value = '';
+                        tipoIdInput.value = '';
+                        pacienteInput.value = '';
+                        celularInput.value = '';
+                        eps.value = '';
+                    });
+            }
+            // Nueva funcionalidad (UNION CON PENDING)
+            // Realizar una solicitud AJAX para buscar la identificación
+            fetch(`/buscar-pendientes?identificacion=${numeroIdentificacion}`)
+                .then(response => response.json())
+                .then(data => {
+                    const pendientesDiv = document.getElementById('pendientesResult'); // Div para mostrar pendientes
+
+                    // Verifica si hay un mensaje de error en los datos del paciente
+                    if (data.message) {
+                        resultDiv.innerHTML = `<h3>${data.message}</h3>`;
+                        pendientesDiv.style.display = 'none'; // Oculta los resultados de pendientes
+                        return;
+                    }
+
+                    // Mostrar los datos de la tabla pendientes
+                    if (data.pendientes.length > 0) {
+                        // Filtramos los pendientes que tienen cantidadpendientefinal diferente de 0
+                        const pendientesFiltrados = data.pendientes.filter(p => p.cantidadpendientefinal != 0);
+
+                        if (pendientesFiltrados.length > 0) {
+                            pendientesDiv.innerHTML = `
+                    <p style="color: #333;text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); font-weight: bold; text-align: center;" class="mt-3">Medicamentos Pendientes</p>
+                    <div class="container mt-3">
+                    <div class="formulario_principal">
+                    <div class="row mt-2">
+                                <div class="col-md-12 d-flex justify-content-center align-items-center flex-column">
+                                    <table class="table table-bordered">
+                                        <thead class="text-center" style="background-color:#FFF6D9;">
+                                            <tr>
+                                                <th>Nº Pendiente</th>
+                                                <th class="w-25">Fecha Registro</th>
+                                                <th class="w-25">Fecha Formula</th>
+                                                <th class="w-75">Medicamento</th>
+                                                <th>Tipo Entrega</th>
+                                                <th>Sede pendiente</th>
+                                                <th>Cantidad Prescrita</th>
+                                                <th>Cantidad Pendiente</th>
+                                                <th>Cantidad Entregada</th>
+                                                <th style="background-color:#dc3545;color: white;">Cantidad Pendiente Final</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${pendientesFiltrados.map((p, index) => `
+                                <tr style="border-bottom: 1px solid #E4B93E; background-color:white;" class="fila_${index} resultados_filas_tabla">
+                                    <td style="padding: 10px; border: 1px solid #E4B93E; text-align:center;">${p.numerofactura}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E; text-align:center;">${new Date(p.fecharegistro).toISOString().split('T')[0]}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E; text-align:center;">${new Date(p.fechaformula).toISOString().split('T')[0]}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E;">${p.medicamento}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E;">${p.tipoentrega}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E;">${p.sedependiente}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E; text-align:center;">${p.cantidadprescrita}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E; text-align:center;" class="cantidadPendiente">${p.cantidadpendiente}</td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E;">
+                                        <input type="text" style="width: 100%; padding: 5px;" id="cantidadEntregada-${index}" oninput="calcularPendienteFinal(${index},${p.idpendientes})" class="cantidad-entregada" data-id="${p.idpendientes}">
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #E4B93E; text-align:center;" class="tdPendientesFinal" id="cantidadPendienteFinalTD-${index}"> <p class="m-0 pendientesFinal" id="cantidadPendienteFinal-${index}">${p.cantidadpendientefinal || '0'}</p> </td>
+                                    <td class="d-none">
+                                        ${p.idpendientes}
+                                    </td>
+                                    <td class="d-none">
+                                        ${p.laboratorio}
+                                    </td>
+                                </tr>
+                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>            
+                        </div>
+                    </div>
+                    `;
+                            // Asignar eventos blur a los inputs
+                            const inputs = document.querySelectorAll(".cantidad-entregada");
+                            inputs.forEach(input => {
+                                input.addEventListener("focus", (event) => {
+                                    const modal = document.getElementById('modal-lote-fecha');
+                                    // Deshabilitar todos los inputs excepto el que tiene el foco
+                                    inputs.forEach(otherInput => {
+                                        if (otherInput !== input) {
+                                            otherInput.disabled = true;
+                                        }
+                                    });
+                                    const valorFocus = event.target.value;
+                                    const idPendientesFocus = event.target.getAttribute('data-id');
+                                    console.log("Entramos al Focus: ", idPendientesFocus)
+
+
+                                    // Interceptar la tecla TAB
+                                    input.addEventListener("keydown", (event) => {
+                                        if (event.key === "Enter" || event.key === "Tab") {
+                                            event.preventDefault();
+
+                                            // Abrir el modal y enfocar en el input del lote
+                                            const loteInput = document.getElementById('lote_modal');
+
+                                            // Resetear valores del modal
+                                            loteInput.value = '';
+                                            document.getElementById('fechaVencimiento_modal').value = '';
+                                            modal.style.display = 'flex';
+
+                                            // Mover el foco directamente al input "lote_modal"
+                                            setTimeout(() => {
+                                                loteInput.focus();
+                                            }, 0);
+                                        }
+                                    });
+
+                                    input.addEventListener("blur", (event) => {
+                                        // Habilitar todos los inputs nuevamente cuando pierda el foco
+                                        inputs.forEach(otherInput => {
+                                            otherInput.disabled = false;
+                                        });
+                                        // Obtener la fila donde está el input
+                                        const fila = event.target.closest("tr");
+                                        const idPendientesBlur = input.getAttribute('data-id');
+                                        console.log("Entramos al Blur: ", idPendientesBlur)
+
+                                        // Valores
+                                        const valorBlur = event.target.value; // capturamos el valor del input
+                                        const tablaDestino = document.getElementById('tabla-productos-pendientes');
+                                        const claseFila = Array.from(fila.classList).find(clase => clase.startsWith('fila_'));
+                                        const filaEliminar = tablaDestino.querySelector(`.${claseFila}`);
+                                        if (valorBlur != 0 || valorBlur != '') {
+                                            const guardarButton = document.getElementById('guardar');
+                                            const cancelarButton = document.getElementById('cancelar');
+                                            // Mostrar el modal
+                                            document.getElementById('lote_modal').value = '';
+                                            document.getElementById('fechaVencimiento_modal').value = '';
+                                            modal.style.display = 'flex';
+                                            guardarButton.onclick = () => {
+                                                const lote = document.getElementById('lote_modal').value.trim();
+                                                const fechaVencimiento = document.getElementById('fechaVencimiento_modal').value;
+                                                if (lote && fechaVencimiento) {
+                                                    // Capturar los valores de las celdas
+                                                    const numeroFactura = fila.querySelector("td:nth-child(1)").innerText;
+                                                    const fechaRegistro = fila.querySelector("td:nth-child(2)").innerText;
+                                                    const fechaFormula = fila.querySelector("td:nth-child(3)").innerText;
+                                                    const medicamento = fila.querySelector("td:nth-child(4)").innerText;
+                                                    const tipoEntrega = fila.querySelector("td:nth-child(5)").innerText;
+                                                    const sedePendiente = fila.querySelector("td:nth-child(6)").innerText;
+                                                    const cantidadPrescrita = fila.querySelector("td:nth-child(7)").innerText;
+                                                    const cantidadPendiente = fila.querySelector("td:nth-child(8)").innerText;
+                                                    const cantidadPendienteFinal = fila.querySelector(".tdPendientesFinal").innerText;
+                                                    const idpendientes = fila.querySelector("td:nth-child(11)").innerText;
+                                                    const laboratorio= fila.querySelector("td:nth-child(12)").innerText;
+
+                                                    const nuevaFila = `
+                                                        <tr class="${claseFila}">
+                                                            <td>${numeroFactura}</td>
+                                                            <td>${fechaRegistro}</td>
+                                                            <td>${fechaFormula}</td>
+                                                            <td>${medicamento}</td>
+                                                            <td>${lote}</td>
+                                                            <td>${tipoEntrega}</td>
+                                                            <td>${sedePendiente}</td>
+                                                            <td>${cantidadPrescrita}</td>
+                                                            <td>${cantidadPendiente}</td>
+                                                            <td>${valorBlur}</td>
+                                                            <td>${cantidadPendienteFinal}</td>
+                                                            <td class='d-none'>${fechaVencimiento}</td>
+                                                            <td class='d-none'>${idpendientes}</td>
+                                                            <td class='d-none'>${laboratorio}</td>
+                                                        </tr>
+                                                    `;
+                                                    tablaDestino.innerHTML += nuevaFila;
+                                                    // Cerrar modal
+                                                    modal.style.display = 'none';
+                                                } else {
+                                                    Swal.fire({
+                                                    title: "Por favor, complete todos los campos.",
+                                                    icon: "warning"
+                                                    })
+                                                }
+                                            }
+                                            // Cancelar y cerrar el modal
+                                            cancelarButton.onclick = () => {
+                                                modal.style.display = 'none';
+                                                // event.target.value = '';
+                                            };
+                                            if (filaEliminar) {
+                                                filaEliminar.remove();
+                                            }
+                                        }
+                                        else {
+                                            modal.style.display = 'none';
+                                            if (valorBlur != valorFocus) {
+                                                filaEliminar.remove();
+                                            }
+                                        };
+                                    });
+                                }); // Finaliza el Blur
+                            }); // Finaliza el FOCUS
+                        } else {
+                            pendientesDiv.innerHTML = `
+                        <div class="f-flex justify-content-center text-center">
+                            <h3>No hay pendientes para esta identificación.</h3>
+                        <div/>
+                    `;
+                        }
+                    } else {
+                        pendientesDiv.innerHTML = `
+                    <div class="f-flex justify-content-center text-center">
+                        <h3>No hay pendientes para esta identificación.</h3>
+                    <div/>
+                `;
+                    }
+                });
+        });
+        const identificacionAgregarU = document.getElementById('Aidentificacion');
+        // Agregar paciente validacion
+        identificacionAgregarU.addEventListener('blur', () => {
+            const numeroIdentificacion = identificacionAgregarU.value.trim();
+            if (numeroIdentificacion) {
+                fetch(`/api/paciente?numeroIdentificacion=${numeroIdentificacion}`)
+                    .then(response => {
+                        if (response.ok) {
+                            Swal.fire({
+                            title: "Ya existe el paciente con esta identificación.",
+                            icon: "warning"
+                            })
+                            identificacionAgregarU.value = "";
+                        }
+                        return response.json();
+                    })
+            }
+        });
+    });
+
+    // Validacion de cantidad prescrita
+    function validarPrescritoDispensado(){
+        const valorDispensado = parseInt(document.getElementById('cantidad_dispensada').value);
+        const valorPrescrito = parseInt(document.getElementById('cantidad_prescrita').value);
+        if ( valorDispensado != 0 && valorPrescrito) {
+            if (valorDispensado > valorPrescrito) {
+                Swal.fire('Error', 'La Cantidad Dispensada Debe Ser Igual o Menor a la Cantidad Prescrita.', 'warning');
+                document.getElementById('cantidad_prescrita').value = '';
+                document.getElementById('cantidad_dispensada').value = '';
+            } 
+        }
+    }
+    // Validacion de agregar usuarios usuarios
+
+    function calcularPendienteFinal(index, id) {
+        const cantidadEntregadaElement = document.getElementById(`cantidadEntregada-${index}`);
+        const cantidadPendienteFinalElement = document.getElementById(`cantidadPendienteFinal-${index}`);
+        const cantidadPendienteFinalElementTD = document.getElementById(`cantidadPendienteFinalTD-${index}`);
+
+        if (!cantidadEntregadaElement || !cantidadPendienteFinalElement) {
+            console.error(`No se encontró uno de los elementos con id 'cantidadEntregada-${index}' o 'cantidadPendienteFinal-${index}'`);
+            return;
+        }
+
+        if (cantidadEntregadaElement.value.trim() === '' || cantidadEntregadaElement.value === '0') {
+            // Si no se ha ingresado nada en 'cantidadEntregada', mostrar el valor pendiente actual desde la base de datos
+            fetch(`/api/obtener-cantidad-pendiente?idpendientes=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    const cantidadPendiente = Number(data.cantidadpendientefinal) || 0;
+                    cantidadPendienteFinalElement.textContent = cantidadPendiente;
+                })
+                .catch(error => {
+                    console.error('Error al obtener la cantidad pendiente final actualizada:', error);
+                });
+            return;
+        }
+
+        const cantidadEntregada = Number(cantidadEntregadaElement.value) || 0;
+
+        // Realizar fetch para obtener el valor actualizado desde la base de datos
+        fetch(`/api/obtener-cantidad-pendiente?idpendientes=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                const cantidadPendiente = Number(data.cantidadpendientefinal) || 0;  // Valor actualizado desde la base de datos
+
+                // Validar si la cantidad entregada es mayor a la cantidad pendiente actualizada
+                if (cantidadEntregada > cantidadPendiente) {
+                    // Limpiar el campo si no cumple la validación y evitar cálculos
+                    cantidadEntregadaElement.value = '';
+                    cantidadPendienteFinalElement.textContent = cantidadPendiente; // Restaurar el valor original
+                    cantidadPendienteFinalElementTD.style.backgroundColor = 'white'; // Restablecer el color a blanco
+                    Swal.fire({
+                        title: "Cuidado",
+                        text: "La cantidad entregada no puede ser mayor que la cantidad pendiente final.",
+                        icon: "warning"
+                        })
+                    return;
+                }
+                // Calcular el pendiente final
+                const pendienteFinal = cantidadPendiente - cantidadEntregada;
+                cantidadPendienteFinalElement.textContent = pendienteFinal >= 0 ? pendienteFinal : 0;
+                if (cantidadPendienteFinalElement.textContent === '0' || cantidadPendienteFinalElement.textContent === '') {
+                    cantidadPendienteFinalElementTD.style.backgroundColor = '#7edd8e';
+                } else {
+                    cantidadPendienteFinalElementTD.style.backgroundColor = 'white';
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener la cantidad pendiente final actualizada:', error);
+            });
+    }
+
+
+    let nombresMunicipios = [];
+
+// Configuración de Awesomplete
+const municipioInput = document.getElementById('municipio');
+const awesompleteMunicipio = new Awesomplete(municipioInput, {
+    minChars: 2,
+    autoFirst: true,
+    maxItems: Infinity
+});
+
+// Cargar nombres de municipios al enfocarse en el input
+municipioInput.addEventListener('focus', function () {
+    if (nombresMunicipios.length === 0) { 
+        fetch('/api/municipios/nombres')
+            .then(response => response.json())
+            .then(data => {
+                nombresMunicipios = data;
+            })
+            .catch(error => console.error('Error al cargar nombres de municipios:', error));
+    }
+});
+
+// Filtrar municipios en el cliente mientras el usuario escribe
+municipioInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    if (query.length > 1) {
+        const filteredMunicipios = nombresMunicipios.filter(nombre =>
+            nombre.toLowerCase().includes(query)
+        );
+
+        // Actualizar la lista de Awesomplete
+        awesompleteMunicipio.list = filteredMunicipios;
+    }
+});
+
+// Evento para validar el campo cuando pierda el foco
+municipioInput.addEventListener('blur', function () {
+    const valorIngresado = this.value.trim();
+
+    // Verificar si el valor ingresado está en la lista de municipios
+    if (!nombresMunicipios.includes(valorIngresado)) {
+        Swal.fire({
+            title: "Error",
+            html: "Por favor, selecciona un municipio de la lista.",
+            icon: "warning",
+            confirmButtonText: "Aceptar"
+        }).then(() => {
+            this.value = ''; // Borra el valor incorrecto 
+        });
+    }
+});
+
+// Evento para seleccionar un municipio de la lista
+municipioInput.addEventListener('awesomplete-selectcomplete', function () {
+    const selectedMunicipio = this.value;
+    cargarDetallesMunicipio(selectedMunicipio);
+});
+
+// Función para cargar los detalles de un municipio (opcional)
+function cargarDetallesMunicipio(nombreMunicipio) {
+    fetch(`/api/municipios/detalles?nombre=${encodeURIComponent(nombreMunicipio)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                return;
+            }
+            // Aquí puedes llenar otros campos con los datos del municipio si es necesario
+            console.log("Detalles del municipio:", data);
+        })
+        .catch(error => console.error('Error al cargar detalles del municipio:', error));
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const inputIdentificacion = document.getElementById('Aidentificacion');
+
+    if (inputIdentificacion) {
+        inputIdentificacion.addEventListener('blur', function () {
+            let valorLimpio = this.value.trim(); // Elimina espacios al inicio y al final
+            if (this.value !== valorLimpio) {
+                this.value = valorLimpio; // Actualiza el campo si había espacios
+            }
+        });
+    } else {
+        console.error("No se encontró el input con ID 'Aidentificacion'");
+    }
+});
+
+
+//---------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------
+
+    let nombresMedicamentos = [];
+
+// Configuración de Awesomplete
+const medicamentoInput = document.getElementById('medicamento');
+const awesomplete = new Awesomplete(medicamentoInput, {
+    minChars: 2,
+    autoFirst: true,
+    maxItems: Infinity
+});
+
+// Cargar nombres de medicamentos al enfocarse en el input
+medicamentoInput.addEventListener('focus', function () {
+    if (nombresMedicamentos.length === 0) { 
+        fetch('/api/medicamentos/nombres')
+            .then(response => response.json())
+            .then(data => {
+                nombresMedicamentos = data;
+            })
+            .catch(error => console.error('Error al cargar nombres de medicamentos:', error));
+    }
+});
+
+// Filtrar medicamentos en el cliente mientras el usuario escribe
+medicamentoInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    if (query.length > 1) {
+        const filteredMedicamentos = nombresMedicamentos.filter(nombre =>
+            nombre.toLowerCase().includes(query)
+        );
+
+        // Actualizar la lista de Awesomplete
+        awesomplete.list = filteredMedicamentos;
+    }
+});
+
+// Evento para validar el campo cuando pierda el foco
+medicamentoInput.addEventListener('blur', function () {
+    const valorIngresado = this.value.trim();
+
+    // Verificar si el valor ingresado está en la lista de medicamentos
+    if (!nombresMedicamentos.includes(valorIngresado)) {
+        Swal.fire({
+            title: "Error",
+            html: "Por Favor Selecciona un Medicamento de la Lista.",
+            icon: "warning",
+            confirmButtonText: "Aceptar"
+        }).then(() => {
+            this.value = ''; // Borra el valor incorrecto 
+        });
+    }
+});
+
+
+// Evento para seleccionar un medicamento de la lista
+medicamentoInput.addEventListener('awesomplete-selectcomplete', function () {
+    const selectedMedicamento = this.value;
+    cargarDetallesMedicamento(selectedMedicamento);
+});
+
+// Función para cargar los detalles de un medicamento
+function cargarDetallesMedicamento(nombreMedicamento) {
+    fetch(`/api/medicamentos/detalles?nombre=${encodeURIComponent(nombreMedicamento)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                return;
+            }
+            document.getElementById('laboratorio').value = data.laboratorio || '';
+        })
+        .catch(error => console.error('Error al cargar detalles del medicamento:', error));
+}
+
+
+    document.getElementById('AU_sede2').addEventListener('input', function () {
+        const query = this.value.toLowerCase(); // Convertir a minúsculas para una comparación más flexible
+        if (query.length > 1) {
+            fetch(`/api/sedes`)
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('sedes_lista1');
+                    list.innerHTML = ''; // Limpiar la lista actual
+
+                    // Filtrar sedes que contengan el texto ingresado
+                    const filteredSedes = data.filter(sede =>
+                        sede.nombresede.toLowerCase().includes(query)
+                    );
+
+                    // Crear los elementos de la lista (li) solo con los medicamentos que coincidan
+                    filteredSedes.forEach(sede => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = sede.nombresede; // Nombre del sede
+
+                        // Al hacer clic en un elemento de la lista, seleccionamos el medicamento
+                        listItem.addEventListener('click', function () {
+                            // Llenamos el campo de búsqueda con el nombre seleccionado
+                            document.getElementById('AU_sede2').value = listItem.textContent;
+                            // Limpiar la lista una vez seleccionado el medicamento
+                            list.innerHTML = '';
+                        });
+                        list.appendChild(listItem); // Añadir el elemento a la lista
+                    });
+                    // Si no hay resultados, mostrar un mensaje
+                    if (filteredSedes.length === 0) {
+                        const noResult = document.createElement('li');
+                        noResult.textContent = 'No se encontraron sedes.';
+                        list.appendChild(noResult);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            document.getElementById('medicamentos-list').innerHTML = ''; // Limpiar la lista si el input tiene menos de 2 caracteres
+        }
+    });
+
+
+
+    document.getElementById('AU_sede').addEventListener('input', function () {
+        const query = this.value.toLowerCase(); // Convertir a minúsculas para una comparación más flexible
+        if (query.length > 1) {
+            fetch(`/api/sedes`)
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('sedes_lista');
+                    list.innerHTML = ''; // Limpiar la lista actual
+
+                    // Filtrar sedes que contengan el texto ingresado
+                    const filteredSedes = data.filter(sede =>
+                        sede.nombresede.toLowerCase().includes(query)
+                    );
+
+                    // Crear los elementos de la lista (li) solo con los medicamentos que coincidan
+                    filteredSedes.forEach(sede => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = sede.nombresede; // Nombre del sede
+
+                        // Al hacer clic en un elemento de la lista, seleccionamos el medicamento
+                        listItem.addEventListener('click', function () {
+                            // Llenamos el campo de búsqueda con el nombre seleccionado
+                            document.getElementById('AU_sede').value = listItem.textContent;
+                            // Limpiar la lista una vez seleccionado el medicamento
+                            list.innerHTML = '';
+                        });
+                        list.appendChild(listItem); // Añadir el elemento a la lista
+                    });
+                    // Si no hay resultados, mostrar un mensaje
+                    if (filteredSedes.length === 0) {
+                        const noResult = document.createElement('li');
+                        noResult.textContent = 'No se encontraron sedes.';
+                        list.appendChild(noResult);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            document.getElementById('medicamentos-list').innerHTML = ''; // Limpiar la lista si el input tiene menos de 2 caracteres
+        }
+    });
+
+
+    document.getElementById('btn_añadir').addEventListener('click', function () {
+        // Obtener los valores de los campos
+        const cantidadPrescrita = document.getElementById('cantidad_prescrita').value;
+        const cantidadDispensada = document.getElementById('cantidad_dispensada').value;
+        const fechaRegistro = document.querySelector('input[type="date"]').value;
+        const identificacion = document.querySelector('.identificacion').value;
+        const tipoIdentificacion = document.querySelector('.form-id').value;
+        const nombre = document.querySelector('.form-paciente').value;
+        const sedePendiente = document.getElementById('sede').value;
+        const producto = document.getElementById('medicamento').value;
+        const nombre_comercial = document.getElementById('nombre_comercial').value;
+        const laboratorio = document.getElementById('laboratorio').value;
+        const forma_farmaceutica = document.getElementById('forma_farmaceutica').value;
+        const fecha_vencimiento = document.getElementById('fecha_vencimiento').value;
+        const lote = document.getElementById('lote').value;
+        const observacion = document.getElementById('observacion').value;
+        const modalidad = document.getElementById('modalidad').value;
+        const copago = document.getElementById('copagoLista').value;
+        const valor = document.getElementById('valorCopago').value;
+
+
+
+        // Array para almacenar los mensajes de error
+        let missingFields = [];
+
+        // Verificar qué campos están vacíos
+
+        if (!producto) missingFields.push('Nombre Genérico');
+        if (!fecha_vencimiento) missingFields.push('Fecha de Vencimiento');
+        if (!lote) missingFields.push('Lote');
+        if (!cantidadPrescrita) missingFields.push('Cantidad Prescrita');
+        if (!cantidadDispensada) missingFields.push('Cantidad Dispensada');
+        // if (!sedePendiente) missingFields.push('Sede pendiente');
+        // if (!fechaRegistro) missingFields.push('Fecha de registro');
+
+
+        if (missingFields.length > 0) {
+            Swal.fire({
+                title: "Campos Obligatorios",
+                html: "Por favor completa los siguientes campos obligatorios: <br> - " + missingFields.join(' <br> - '),
+                icon: "warning",
+                confirmButtonText: "Aceptar"
+            });
+            return;
+        }
+
+        // Reiniciar los inputs
+        document.getElementById("nombre_comercial").value = "";
+        document.getElementById("medicamento").value = "";
+        document.getElementById("laboratorio").value = "";
+        document.getElementById("forma_farmaceutica").value = "";
+        document.getElementById("fecha_vencimiento").value = "";
+        document.getElementById("lote").value = "";
+        document.getElementById("observacion").value = "";
+        document.getElementById("observacion").value = "";
+        document.getElementById("cantidad_prescrita").value = "";
+        document.getElementById("cantidad_dispensada").value = "";
+
+
+        // Crear una nueva fila (tr)
+        const nuevaFila = document.createElement('tr');
+        nuevaFila.style.backgroundColor = '#ffffff'; // Fondo blanco
+
+        // Crear las celdas (td) para la fila
+        nuevaFila.innerHTML = `
+        
+        <td>${producto}</td>
+        <td>${laboratorio}</td>
+        <td>${nombre_comercial}</td>
+        <td class="text-center">${forma_farmaceutica}</td>
+        <td class="text-center">${fecha_vencimiento}</td>
+        <td class="text-center">${lote}</td>
+        <td class="text-center"">${observacion}</td>
+        <td class="text-center">${cantidadPrescrita}</td>
+        <td class="text-center">${cantidadDispensada}</td>
+    `;
+
+        // Agregar la funcionalidad para eliminar la fila al hacer clic
+        nuevaFila.addEventListener('click', function () {
+            // Crear el modal personalizado para confirmar la eliminación
+            const modal = document.createElement('div');
+            modal.style.background = 'white';
+            modal.style.padding = '20px';
+            modal.style.borderRadius = '5px';
+            modal.style.width = '230px';
+            modal.style.margin = 'auto';
+            modal.style.position = 'fixed';
+            modal.style.top = '50%';
+            modal.style.left = '50%';
+            modal.style.transform = 'translate(-50%, -50%)';
+            modal.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+            modal.style.zIndex = '9999'; // Asegura que el modal esté encima de todo
+
+            // Mensaje del modal
+            const mensaje = document.createElement('p');
+            mensaje.id = 'modalMessage';
+            mensaje.textContent = '¿Deseas eliminar esta fila?';
+            modal.appendChild(mensaje);
+
+            // Botón de aceptar
+            const botonAceptar = document.createElement('button');
+            botonAceptar.id = 'closeModal';
+            botonAceptar.textContent = 'Aceptar';
+            botonAceptar.style.background = '#0ac150';
+            botonAceptar.style.color = 'white';
+            botonAceptar.style.border = 'none';
+            botonAceptar.style.padding = '10px';
+            botonAceptar.style.borderRadius = '5px';
+            botonAceptar.style.cursor = 'pointer';
+            modal.appendChild(botonAceptar);
+
+            // Botón de cancelar
+            const botonCancelar = document.createElement('button');
+            botonCancelar.textContent = 'Cancelar';
+            botonCancelar.style.background = '#dc3545';
+            botonCancelar.style.color = 'white';
+            botonCancelar.style.border = 'none';
+            botonCancelar.style.padding = '10px';
+            botonCancelar.style.borderRadius = '5px';
+            botonCancelar.style.cursor = 'pointer';
+            botonCancelar.style.marginLeft = '10px';
+            modal.appendChild(botonCancelar);
+
+            // Agregar el modal al documento
+            document.body.appendChild(modal);
+
+            // Función para eliminar la fila y cerrar el modal al hacer clic en "Aceptar"
+            botonAceptar.addEventListener('click', () => {
+                nuevaFila.remove(); // Eliminar la fila
+                modal.remove(); // Cerrar el modal
+            });
+
+            // Cerrar el modal al hacer clic en "Cancelar"
+            botonCancelar.addEventListener('click', () => {
+                modal.remove(); // Cerrar el modal
+            });
+        });
+        // Agregar la nueva fila al cuerpo de la tabla
+        document.getElementById('tabla-productos').appendChild(nuevaFila);
+    });
+
+    // Enviar datos a la db
+
+    document.getElementById('guardar-btn').addEventListener('click', function () {
+        // Obtener los valores de los campos
+        const fechaRegistro = document.querySelector('input[type="date"]').value;
+        const identificacion = document.querySelector('.identificacion').value;
+        const eps = document.getElementById('eps').value;
+        const municipio = document.getElementById('municipio').value;
+        const sedePendiente = document.getElementById('sede').value;
+        const regimen= document.getElementById('regimen').value;
+        const modalidad = document.getElementById('modalidad').value;
+        const copago = document.getElementById('copagoLista').value;
+        const valor = document.getElementById('valorCopago').value;
+        const fechaformula= document.getElementById('fechaFormula').value;
+        const numeroformula= document.getElementById('numeroFormula').value;
+        const codigodiagnostico= document.getElementById('codigoDiagnostico').value;
+        const diagnostico =  document.getElementById('nombreDiagnostico').value;
+
+        // Array para almacenar los mensajes de error
+        let missingFields = [];
+
+        // Verificar qué campos están vacíos
+
+        // if (!fechaRegistro) missingFields.push('Fecha de registro');
+        if (!identificacion) missingFields.push('Identificación');
+        if (!municipio) missingFields.push('Municipio');
+        if (!modalidad) missingFields.push('Modalidad');
+        const modalidadValue = document.getElementById('modalidad').value; 
+
+        if (modalidadValue === 'EVENTO' && !document.getElementById('NumAutorizacion').value) {
+            missingFields.push('Número de Autorización');
+        }
+
+        if (modalidadValue === 'MIPRES' && !document.getElementById('NumAutorizacionMipres').value && (eps === 'SANITAS EPS' || eps === 'SOS SALUD')) {
+             missingFields.push('Nº Autorización Mipres');
+        }
+
+
+        if (modalidadValue === 'MIPRES' && !document.getElementById('CodigoMipres').value) {
+            missingFields.push('Código MIPRES');
+        }
+
+        if (modalidadValue === 'PGP' && !document.getElementById('NumValidacionPGP').value) {
+            missingFields.push('Nº Validacion PGP');
+        }
+
+        if (!regimen) missingFields.push('Régimen');
+        if (!copago) missingFields.push('Copago / Cuota Moderadora');
+        if (!valor) missingFields.push('Valor');
+        if (!fechaformula) missingFields.push('Fecha Fórmula');
+        if (!numeroformula) missingFields.push('Nº Fórmula	');
+        if (!codigodiagnostico) missingFields.push('Código Diagnóstico	');
+        if (!diagnostico) missingFields.push('Diagnóstico');
+
+
+
+        if (missingFields.length > 0) {
+            Swal.fire({
+                title: "Campos Obligatorios",
+                html: "Por favor completa los siguientes campos obligatorios: <br> - " + missingFields.join(' <br> - '),
+                icon: "warning",
+                confirmButtonText: "Aceptar"
+            });
+            return;
+        }
+
+        // Obtener los valores de los inputs
+        const filas_entregados = document.querySelectorAll('#tabla-productos tr'); //obtenemos la tabla de entregados
+        // Capturamos las filas de los pendientes
+        const filas_pendientes = document.querySelectorAll('#tabla-productos-pendientes tr'); // Obtener las filas de la tabla
+
+
+        // Validar si hay al menos una fila
+        if (filas_entregados.length === 0 && filas_pendientes.length === 0) {
+                Swal.fire({
+                    title: "Aviso",
+                    text: "Debe Tener al Menos un Medicamento Entregado",
+                    icon: "warning",
+                    confirmButtonText: "Aceptar"
+                });
+                return;
+            }
+
+        document.getElementById('guardar-btn').disabled = true;
+        // DATOS PARA PENDIENTES
+        // Capturar todas las filas del input
+        const rows = document.querySelectorAll('.cantidad-entregada'); // Inputs de la tabla de pendientes en entregados
+        const pendientesFinales = document.querySelectorAll('.pendientesFinal');
+
+        let updates = [];
+
+        rows.forEach((row, index) => {
+            const idRow = row.getAttribute('data-id'); // Capturamos el id del pendiente
+            const cantidadentregada = row.value; // Capturamos la cantidad entregada
+            const cantidadpendientefinal = pendientesFinales[index].textContent; // Capturamos el pendiente final
+            if (cantidadentregada !== '0' && cantidadentregada !== '' && cantidadentregada !== null)  {
+                updates.push({
+                    idpendientes: idRow,
+                    cantidadentregada: cantidadentregada,
+                    cantidadpendientefinal: cantidadpendientefinal
+                });
+            };
+        });
+        // Enviar datos al backend: Actualizamos la cantidad entregada y la cantidad pendiente final
+        fetch('/api/actualizar-cantidad-entregada', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ updates: updates })
+        })
+            .then(response => response.json())
+            .then(data1 => {
+                if (data1.success) {
+                    console.log('Exito')
+                } else {
+                    Swal.fire({
+                            title: "Error al actualizar los datos de pendientes.",
+                            icon: "error"
+                            })
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        // ---------------------------------------------------------------------
+        rows.forEach(input => {
+            const cantidadentregada = input.value; // Captura el valor del input
+            const idpendientes = input.getAttribute('data-id'); // Captura el id del input
+            // Verifica que el input no esté vacío
+            if (cantidadentregada) {
+                // Enviar la solicitud al servidor: Agregamos una columna en la tabla de pendientes de la entrega
+                fetch('/actualizar-cantidad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cantidadentregada, idpendientes, username }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error al actualizar la cantidad');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Respuesta del servidor:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        });
+
+
+
+
+        // ENVIAMOS LOS DATOS PARA ENTREGADOS
+        // Tabla de entregados
+        fetch('/api/entregados/ultimoNumeroFactura')
+            .then(response => response.json())
+            .then(facturaData => {
+
+                const inputFecha = document.getElementById('fecha_solicitud').value;
+                // Crear un objeto con la hora actual
+                const fechaActualGuardar = new Date();
+                const hours = ('0' + fechaActualGuardar.getHours()).slice(-2);
+                const minutes = ('0' + fechaActualGuardar.getMinutes()).slice(-2);
+                const seconds = ('0' + fechaActualGuardar.getSeconds()).slice(-2);
+
+                const fecharegistroCompleto = `${inputFecha} ${hours}:${minutes}:${seconds}`;
+                
+                // Array para los registros
+                const registros = [];
+                // Capturamos datos globales
+                const numerodelentregado = parseInt(facturaData.numeroFactura) + 1;
+                const fecharegistro = fecharegistroCompleto;
+                const identificacion = document.getElementById('identificacionId').value;
+                const tipoidentificacion = document.getElementById('tipoIdentificacionId').value;
+                const nombre = document.getElementById('nombrePaciente').value
+                const celular = document.getElementById('celular1').value;
+                const eps = document.getElementById('eps').value;
+                const municipio = document.getElementById('municipio').value;
+                const codigomipres = document.getElementById('CodigoMipres').value;
+                const autorizacionmipres = document.getElementById('NumAutorizacionMipres').value;
+                const validacionpgp = document.getElementById('NumValidacionPGP').value;
+                const numeroautorizacion = document.getElementById('NumAutorizacion').value;
+                const regimen= document.getElementById('regimen').value;
+                const modalidad = document.getElementById('modalidad').value;
+                const copago_cuota = document.getElementById('copagoLista').value;
+                const valorcopago_cuota = document.getElementById('valorCopago').value;
+                const rango = document.getElementById('rango').value;
+                const fechaformula= document.getElementById('fechaFormula').value;
+                const numeroformula= document.getElementById('numeroFormula').value;
+                const codigodiagnostico= document.getElementById('codigoDiagnostico').value;
+                const diagnostico =  document.getElementById('nombreDiagnostico').value;
+                const sede = document.getElementById('sede').value;
+                const registradopor = document.getElementById('username').getAttribute('registradopor');
+                // Recorremos filas entregados para capturar los datos de las filas
+                filas_entregados.forEach(fila => {
+                    const celdas = fila.children;
+                    const nombregenerico = celdas[0].innerText;
+                    const nombrecomercial = celdas[2].innerText;
+                    const laboratorio = celdas[1].innerText;
+                    const formafarmaceutica = celdas[3].innerText;
+                    const fechavencimiento = celdas[4].innerText;
+                    const lote = celdas[5].innerText;
+                    const observacion = celdas[6].innerText;
+                    const cantidadprescrita = celdas[7].innerText;
+                    const cantidaddispensada = celdas[8].innerText;
+                    // Capturamos la ultima entrega del pendiente
+                    // Construimos data
+                    const data = {
+                        numerodelentregado,
+                        fecharegistro,
+                        identificacion,
+                        tipoidentificacion,
+                        nombre,
+                        celular,
+                        eps,
+                        municipio,
+                        numeroautorizacion,
+                        regimen,
+                        codigomipres,
+                        autorizacionmipres,
+                        validacionpgp,
+                        modalidad,
+                        copago_cuota,
+                        valorcopago_cuota,
+                        rango,
+                        fechaformula,
+                        numeroformula,
+                        codigodiagnostico,
+                        diagnostico,
+                        sede,
+                        nombregenerico,
+                        laboratorio,
+                        nombrecomercial,
+                        formafarmaceutica,
+                        fechavencimiento,
+                        lote,
+                        cantidadprescrita,
+                        cantidaddispensada,
+                        registradopor,
+                        observacion
+                    };
+                    registros.push(data);
+                });
+
+                const promises = []; // Array para las promesas de fetch
+
+                // Recorremos las filas de la tabla pendientes y llenamos el registro
+                filas_pendientes.forEach(fila => {
+                    const celdas = fila.children;
+                    const fecharegistroPendiente = celdas[1].innerText;
+                    const nombregenerico = celdas[3].innerText;
+                    const fechavencimiento = celdas[11].innerText;
+                    const lote = celdas[4].innerText;
+                    const cantidadprescrita= celdas[7].innerText;
+                    const cantidaddispensada = celdas[9].innerText;
+                    const id = celdas[12].innerText;
+                    const laboratorio = celdas[13].innerText.trim();
+
+                    // Restamos la fecha registro y la fecha de entrega
+                    const fecha1 = new Date(fecharegistroPendiente);
+                    const fecha2 = new Date(inputFecha);
+                    const diferenciaMs = fecha2 - fecha1; // Diferencia en milisegundos
+                    const diasEntrega = diferenciaMs / (1000 * 60 * 60 * 24); // Convertir a días 
+
+                    const fetchPromise = fetch(`/ultima-entrega/${id}`)
+                        .then(response => response.json())
+                        .then(ultimaEntregaData => {
+                            const npendiente = `P${ultimaEntregaData.ultimaEntrega}-${id.trim()}`;
+                            const data = {
+                                numerodelentregado,
+                                fecharegistro,
+                                diasEntrega,
+                                identificacion,
+                                tipoidentificacion,
+                                nombre,
+                                celular,
+                                eps,
+                                municipio,
+                                copago_cuota,
+                                valorcopago_cuota,
+                                rango,
+                                fechaformula,
+                                numeroformula,
+                                codigodiagnostico,
+                                diagnostico,
+                                numeroautorizacion,
+                                regimen,
+                                codigomipres,
+                                autorizacionmipres,
+                                validacionpgp,
+                                modalidad,
+                                sede,
+                                nombregenerico,
+                                laboratorio: laboratorio || '',
+                                nombrecomercial: '',
+                                formafarmaceutica: '',
+                                fechavencimiento,
+                                lote,
+                                cantidadprescrita,
+                                cantidaddispensada,
+                                registradopor,
+                                observacion: '',
+                                npendiente: npendiente
+                            };
+                            registros.push(data);
+                        })
+                        .catch(error => console.error('Error al obtener última entrega:', error));
+                    // Añadir la promesa al array
+                    promises.push(fetchPromise);
+                });
+                console.log(registros)
+
+                Promise.all(promises).then(() => {
+                    registros.forEach(registro => {
+                        console.log(registro)
+                        // X cada registro se envia los datos a la DB de entregados
+                        fetch('/api/entregados', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(registro) // Asegúrate de incluir el cuerpo de la solicitud
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Error en la solicitud: ' + response.statusText);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                // Mostrar el modal de éxito
+                                console.log('Entra en el modal')
+                                document.getElementById('modalMessage').innerText = `Datos guardados correctamente Número de entregado ${numerodelentregado}`;
+                                document.getElementById('successModal').style.display = 'flex';
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+                })
+                    .catch(error => console.error('Error al procesar los registros:', error));
+
+                // Manejar el botón de cerrar del modal
+                document.getElementById('closeModal').addEventListener('click', function () {
+                    document.getElementById('successModal').style.display = 'none';
+                    document.getElementById('numero-entregado').value = numerodelentregado;
+                    document.getElementById('vaciar-btn').disabled = false;
+                    document.getElementById('fecha_solicitud').readOnly = true;
+                    document.getElementById('identificacionId').readOnly = true;
+                    document.getElementById('tipoIdentificacionId').readOnly = true;
+                    document.getElementById('nombrePaciente').readOnly = true;
+                    document.getElementById('celular1').readOnly = true;
+                    document.getElementById('eps').readOnly = true;
+                    document.getElementById('municipio').readOnly = true;
+                    document.getElementById('copagoLista').disabled = true;
+                    document.getElementById('valorCopago').readOnly = true;
+                    document.getElementById('valorCopago').disabled = true;
+                    document.getElementById('rango').readOnly = true;
+                    document.getElementById('fechaFormula').readOnly = true;
+                    document.getElementById('numeroFormula').readOnly = true;
+                    document.getElementById('codigoDiagnostico').readOnly = true;
+                    document.getElementById('nombreDiagnostico').readOnly = true;
+                    document.getElementById('CodigoMipres').readOnly = true;
+                    document.getElementById('NumAutorizacionMipres').readOnly = true;
+                    document.getElementById('NumValidacionPGP').readOnly = true;
+                    document.getElementById('NumAutorizacion').readOnly = true;
+                    document.getElementById('modalidad').disabled = true;
+                    document.getElementById('regimen').disabled = true;
+                    document.getElementById('medicamento').readOnly = true;
+                    document.getElementById('laboratorio').readOnly = true;
+                    document.getElementById('nombre_comercial').readOnly = true;
+                    document.getElementById('forma_farmaceutica').readOnly = true;
+                    document.getElementById('fecha_vencimiento').readOnly = true;
+                    document.getElementById('lote').readOnly = true;
+                    document.getElementById('cantidad_prescrita').readOnly = true;
+                    document.getElementById('cantidad_dispensada').readOnly = true;
+                    document.getElementById('observacion').readOnly = true;
+                    document.getElementById('btn_añadir').disabled = true;
+                });
+                // Escondemos el medicamentos pendientes
+                document.getElementById("pendientesResult").style.display = 'none';
+            }) // Termina peticion fetch ultimo numero factura entregados
+            .catch(error => console.error('Error al obtener el último número de factura:', error));
+    }); // Termina evento click en btn guardar
+
+    document.getElementById('vaciar-btn').addEventListener('click', () => {
+        location.reload()
+    });
+
+    document.getElementById('identificacionId').addEventListener('blur', function () {
+    this.value = this.value.trim(); // Elimina espacios al inicio al perder el foco
+});
+
+    // Enviar a la bd pacientes
+
+    document.getElementById('agregar-paciente-btn-1').addEventListener('click', function () {
+        document.getElementById("consulta_usuario").style.display = 'none';
+        document.getElementById("id_formulario_principal").style.display = 'none';
+        document.getElementById("entregadosResult").style.display = 'none';
+        document.getElementById("result").style.display = 'none';
+        document.getElementById("agregar_usuario").style.display = 'block';
+        document.getElementById("texto_principal").innerText = 'Agregar Paciente';
+        document.getElementById('pendientesResult').style.display = 'none';
+        document.getElementById('text_agregar_usuario_SU').style.display = 'none';
+    });
+    document.getElementById('usuarios-btn').addEventListener('click', function () {
+        document.getElementById("consulta_usuario").style.display = 'none';
+        document.getElementById("id_formulario_principal").style.display = 'none';
+        document.getElementById("entregadosResult").style.display = 'none';
+        document.getElementById("result").style.display = 'none';
+        document.getElementById("agregar_usuario").style.display = 'block';
+        document.getElementById("texto_principal").innerText = 'Agregar Usuarios';
+        document.getElementById('pendientesResult').style.display = 'none';
+        document.getElementById('text_agregar_usuario_SU').style.display = 'none';
+    });
+
+    document.getElementById('agregar-paciente-btn').addEventListener('click', function () {
+        // const idpaciente = parseInt(ultimoIdpaciente.idpaciente)+1;
+        const identificacion = document.getElementById('Aidentificacion').value;
+        const nombre = document.getElementById('AnombrePaciente').value.toUpperCase();
+        const tipoIdentificacion = document.getElementById('AtipoIdentificacion').value;
+        const telefono = document.getElementById('Acelular1').value || '';
+        const eps = document.getElementById('Aeps').value;
+
+        // Array para almacenar los mensajes de error
+        let missingFields = [];
+            
+            if (!identificacion) missingFields.push('Identificación');
+            if (!tipoIdentificacion) missingFields.push('Tipo Identificación');
+            if (!nombre) missingFields.push('Nombre del Paciente');
+            if (!telefono) missingFields.push('Celular');
+            if (!eps) missingFields.push('Eps');
+            
+            if (missingFields.length > 0) {
+                    Swal.fire({
+                        title: "Campos Obligatorios",
+                        html: "Por favor completa los siguientes campos obligatorios: <br> - " + missingFields.join(' <br> - '),
+                        icon: "warning",
+                        confirmButtonText: "Aceptar"
+                    });
+                    return;
+                }
+
+
+        // Crear el objeto de datos
+        const data = {
+            identificacion,
+            tipoidentificacion: tipoIdentificacion,
+            nombre,
+            telefono,
+            eps
+        };
+
+        // Enviar los datos al servidor
+        fetch('/api/pacientes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) // Asegúrate de incluir el cuerpo de la solicitud
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Mostrar el modal de éxito
+                Swal.fire({
+                        title: "Datos guardados correctamente",
+                        icon: "success",
+                        confirmButtonText: "Aceptar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+            })
+            .catch(error => console.error('Error:', error));
+        // Manejar el botón de cerrar del modal
+        document.getElementById('closeModal').addEventListener('click', function () {
+            document.getElementById('successModal').style.display = 'none';
+            location.reload();
+        });
+    });
+
+    // Evento para mostrar el formulario cuando se haga clic en el botón "Consulta entregados"
+    document.getElementById("consulta-btn").addEventListener("click", function () {
+        // Mostrar el formulario de consulta
+        document.getElementById("consulta_usuario").style.display = 'block';
+        document.getElementById("id_formulario_principal").style.display = 'none';
+        document.getElementById("agregar_usuario").style.display = 'none';
+        document.getElementById("texto_principal").innerText = 'Consulta Entregados';
+        document.getElementById('pendientesResult').style.display = 'none'
+    });
+
+    document.getElementById("facturacion-btn").addEventListener("click", function () {
+        // Mostrar el formulario de consulta
+        location.reload();
+    });
+
+    // Boton para consultar pacientes
+    document.getElementById('form_consultar').addEventListener('submit', function (event) {
+        event.preventDefault();  // Evitar que el formulario se envíe de forma tradicional
+
+        const identificacion = document.getElementById('identificacion_c').value;
+
+        // Realizar una solicitud AJAX para buscar la identificación
+        fetch(`/buscar-entregado?identificacion=${identificacion}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                const entregadosDiv = document.getElementById('entregadosResult'); // Div para mostrar pendientes
+
+                // Verifica si hay un mensaje de error en los datos del paciente
+                if (data.message) {
+                    Swal.fire({
+                            title: "Paciente no encontrado!",
+                            icon: "error"
+                        });
+                    resultDiv.style.display = 'none';
+                    entregadosDiv.style.display = 'none'; // Oculta los resultados de pendientes
+                    return;
+                }
+                // Mostrar los datos del paciente
+                resultDiv.innerHTML = `
+    <div class="container mt-3 no-print">
+        <h2 style="color: #333;text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); font-weight: bold; text-align: center;">Datos del Paciente</h2>
+        <div class="row justify-content-between align-items-center" 
+            style="background-color: #dff8e5; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 20px; padding: 20px; font-size: 14px; border: 1px solid #dff8e5;">
+            <div class="col-md-4">
+                <p><strong>Tipo de Identificación:</strong> ${data.paciente.tipoidentificacion || ''}</p>
+                <p><strong>Numero Identificación:</strong> ${data.paciente.identificacion || ''}</p>  
+            </div>
+            <div class="col-md-4">
+                <p><strong>Nombre:</strong> ${data.paciente.nombre || ''}</p>
+                <p><strong>EPS:</strong> ${data.paciente.eps || ''}</p>
+            </div>
+            <div class="col-md-4">
+                <p><strong>Celular:</strong> ${data.paciente.telefono || ''}</p>
+                <p><strong>  </strong> </p>
+            </div>
+        </div>
+`;
+
+                // Mostrar los datos de la tabla pendientes
+                if (data.pendientes.length > 0) {
+                    entregadosDiv.innerHTML = `
+    <h2 style="color: #333;text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); font-weight: bold; text-align: center;" class="mt-3 no-print">Medicamentos Entregados</h2>
+    <div class="container mt-3">
+    <div class="formulario_principal_consulta no-print">
+    <div class="row mt-2">
+                <div class="col-md-12 d-flex justify-content-center align-items-center flex-column">
+                    <table class="table table-bordered">
+                        <thead class="text-center" style="background-color:#dff8e5;">
+                            <tr>
+                                <th>Nº Entregado</th>
+                                <th class="w-25">Fecha Registro</th>
+                                <th>Sede Entregado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.pendientes.map((p, index) => `
+                <tr class="fila-click" style="border-bottom: 1px solid #dff8e5; background-color:white;">
+                    <td style="padding: 10px; border: 1px solid #21ac6b; text-align:center;">${p.numerodelentregado}</td>
+                    <td style="padding: 10px; border: 1px solid #21ac6b; text-align:center;">${new Date(p.fecharegistro).toISOString().split('T')[0]}</td>
+                    <td style="padding: 10px; border: 1px solid #21ac6b;text-align:center;">${p.sede}</td>
+                </tr>
+            `
+                    ).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>            
+        </div>
+    </div>
+    `;
+                    const filas = document.querySelectorAll('.fila-click');
+                    filas.forEach((fila, index) => {
+                        fila.addEventListener('click', () => {
+                            numeroEntregado = fila.children[0].textContent
+                            const filaReferencia = fila;
+                            fetch(`/mostrar-entregado?numerodelentregado=${numeroEntregado}&identificacion=${identificacion}`)
+                                .then(response => response.json())
+                                .then(dataIn => {
+                                    tablaEntregados = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="../img/P.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GENHOSPI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="container mt-3">
+    <div class="formulario_principal" id="id_formulario_principal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-end">
+                    <button id="btn_eliminar_entregado" class="log-btn btn-danger consu" style="display: none;"><i class="fa-solid fa-trash"></i></button>
+                </div>
+                <div class="row align-items-center" style="margin: 0; padding: 0;">
+                    <div class="col-md-4 text-left" style="padding: 5px;">
+                        <img src="../img/logo.png" alt="Vini" class="logo1" style="width: 250px; height: auto;">
+                    </div>
+                    <div class="col-md-4 text-center" style="padding: 10px;">
+                        <h4 style="font-size: 15px;" class="m-0">ACTA DE ENTREGA DE MEDICAMENTOS Y/O INSUMOS</h4>
+                    </div>
+                    <div class="col-md-4 text-center" style="padding: 10px;">
+                        <h4 style="font-size: 15px;" class="m-0">Número del Entregado</h4>
+                        <input type="text" id="numero-entregado" class="form-control form-entregado" style="width: 200px; margin: 0 auto;" value="${numeroEntregado}" readonly>
+                    </div>
+                </div>
+                        
+                <div class="col-md-12 text-center">
+                    <h4 style="font-size: 15px;" > Por medio de la presente se evidencia la dispensación (entrega informada) de los medicamentos siguientes:</h4></br>
+                </div>
+                <table class="w-100">
+                    <thead class="text-dark">
+                        <tr>
+                            <th class="text-center">Fecha</th>
+                            <th class="text-center">Identificación</th>
+                            <th class="text-center">Tipo ID</th>
+                            <th class="text-center">Paciente</th>
+                            <th class="text-center">Celular</th>
+                            <th class="text-center">EPS</th>
+                            <th class="text-center">Municipio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="date" id="fecha_solicitud" class="form-control" readonly value="${new Date(dataIn.entregados[0].fecharegistro).toISOString().split('T')[0]}"></td>
+                            <td><input type="text" class="form-control identificacion" id="identificacionId" readonly value="${data.paciente.identificacion}"></td>
+                            <td><input type="text" class="form-control form-id" id="tipoIdentificacionId" readonly value="${data.paciente.tipoidentificacion}"></td>
+                            <td><input type="text" id="nombrePaciente" class="form-control form-paciente" value="${data.paciente.nombre}" readonly></td>
+                            <td><input type="text" id="celular1" class="form-control form-telefono" value="${data.paciente.telefono}" readonly></td>
+                            <td><input type="text" id="eps" maxlength="50" class="form-control form-eps" readonly value="${data.paciente.eps}"></td>
+                            <td><input type="text" id="municipio" class="form-control" value="${dataIn.entregados[0].municipio}" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="w-100">
+                    <thead class="text-dark">
+                        <tr>
+                            <th class="text-center">Modalidad</th>
+                            <th class="text-center">Nº Autorización Mipres</th>
+                            <th class="text-center">Código Mipres</th>
+                            <th class="text-center">Nº Autorización</th>
+                            <th class="text-center">Nº Validación PGP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" id="modalidad" class="form-control" value="${dataIn.entregados[0].modalidad}" readonly></td>
+                            <td><input type="text" id="modalidad" class="form-control" value="${dataIn.entregados[0].autorizacionmipres || ''}" readonly></td>
+                            <td>
+                                <input id="CodigoMipres" type="number" class="form-control form-inline-input" value="${dataIn.entregados[0].codigomipres}" readonly>
+                            </td>
+                            <td>
+                                <input id="NumAutorizacion" type="number" class="form-control form-inline-input" value="${dataIn.entregados[0].numeroautorizacion}" readonly>
+                            </td>
+                            <td>
+                                <input id="NumAutorizacion" type="number" class="form-control form-inline-input" value="${dataIn.entregados[0].validacionpgp}" readonly>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="w-100">
+                    <thead class="text-dark">
+                        <tr>
+                            <th class="text-center">Régimen</th>
+                            <th class="text-center">Copago / Cuota Moderadora</th>
+                            <th class="text-center">Valor</th>
+                            <th class="text-center">Rango</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" id="copagoLista" class="form-control" value="${dataIn.entregados[0].regimen || ''}" readonly></td>
+                            <td><input type="text" id="copagoLista" class="form-control" value="${dataIn.entregados[0].copago_cuota || ''}" readonly></td>
+                            <td><input type="text" id="valorCopago" class="form-control" value="${dataIn.entregados[0].valorcopago_cuota || ''}" readonly></td>
+                            <td><input type="text" id="valorCopago" class="form-control" value="${dataIn.entregados[0].rango || ''}" readonly></td>
+                            <td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="w-100">
+                    <thead class="text-dark">
+                        <tr>
+                            <th class="text-center">Punto</th>
+                            <th class="text-center">Fecha Fórmula</th>
+                            <th class="text-center">Nº Fórmula</th>
+                            <th class="text-center">Código Diagnóstico</th>
+                            <th class="text-center w-50">Diagnóstico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input id="sede" name="sede" type="text" class="form-control form-inline-input" value="${dataIn.entregados[0].sede}" readonly>
+                            </td>
+                            <td><input type="date" class="form-control" id="fechaFormula" readonly value="${dataIn.entregados[0].fechaformula ? new Date(dataIn.entregados[0].fechaformula).toISOString().split('T')[0] : ''}"></td>
+                            <td><input type="number" id="numeroFormula" class="form-control" readonly value="${dataIn.entregados[0].numeroformula || ''}"></td>
+                            <td><input type="text" id="codigoDiagnostico" class="form-control" readonly value="${dataIn.entregados[0].codigodiagnostico || ''}"></td>
+                            <td><input type="text" id="nombreDiagnostico" class="form-control" readonly value="${dataIn.entregados[0].diagnostico || ''}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead class="bg-success text-white text-center">
+                        <tr class="black_color">
+                        
+                            <th class="w-25">Nombre Genérico</th>
+                            <th>Laboratorio</th>
+                            <th>Nombre comercial</th>
+                            <th>Forma Farmacéutica</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Lote</th>
+                            <th>Observación</th>
+                            <th>Prescrita</th>
+                            <th class="bg-danger">Dispensado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${dataIn.entregados.map((p) => `
+                <tr class="fila-click" style="border-bottom: 1px solid #0fba70; background-color:white;">
+                   
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.nombregenerico}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.laboratorio}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.nombrecomercial}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.formafarmaceutica}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.fechavencimiento ? new Date(p.fechavencimiento).toISOString().split('T')[0] : ''}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.lote}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.observacion}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.cantidadprescrita}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.cantidaddispensada}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;" class='d-none'>${p.npendiente}</td>
+                </tr>
+            `
+                                    ).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+        <div class="mt-2 ocultar imprimir">
+            <table class="table1 table-bordered">
+                <tbody>
+                    <tr>
+                        <td><h4 class="px_letras">Se informa acerca del almacenamiento adecuado de medicamentos</h4></td>
+                        <td><h4 class="px_letras">&nbsp;</h4></td>                            
+                        <td><h4 class="px_letras">Se informa a cerca del uso adecuado de medicamentos (vìa de administraciòn)</h4></td>
+                        <td><h4 class="px_letras">&nbsp;</h4></td>                            
+                    </tr>
+                    <tr>
+                        <td><h4 class="px_letras">Se informa acerca de la disposición final adecuada de los
+                            medicamentos</h4></td>
+                        <td><h4 class="px_letras"></h4></td>                            
+                        <td><h4 class="px_letras">Se indaga al paciente acerca de posibles reacciones adversas</h4></td>
+                        <td><h4 class="px_letras"></h4></td>                            
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+    <p class="texto-justificado">
+        El abajo firmante, mayor de edad, declara bajo la gravedad del juramento, que todos los documentos que suministro, son auténticos y que su contenido es veraz. En consecuencia, manifiesto que soy consciente de que, en el evento de que la información en ellos contenida no estuviera ceñida a la verdad, afrontaré las acciones legales correspondientes en mi contra, entre ellas, la denuncia penal correspondiente ante la Fiscalía General de la Nación por parte de Genhospi S.A.S. y/o sus afiliados. Por consiguiente, me hago responsable de que la totalidad de la documentación que en esta fecha aporto es fiel a la realidad, que no ha sido manipulada ni editada y, por ende, libero de cualquier responsabilidad a la empresa que me suministra lo entregado. Finalmente, manifiesto que los medicamentos, e insumos que me han sido entregados, están dirigidos directamente a la persona que los requiere y que los mismos no van a ser vendidos ni usados con otras finalidades ilegales.
+    </p>
+</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table1 table-bordered w-100">
+                <colgroup>
+                    <col style="width: 25%;"> 
+                    <col style="width: 10%;"> 
+                    <col style="width: 35%;"> 
+                    <col style="width: 10%;"> 
+                    <col style="width: 20%;"> 
+                </colgroup>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <h4 class="px_letras">Quien Entrega</h4>
+                        </td>
+                        <td colspan="2" class="text-center">
+                            <h4 class="px_letras">Quien Recibe</h4>
+                        </td>
+                        <td rowspan="3" class="text-center align-top">
+                            <h4 class="px_letras">Huella</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            ${dataIn.entregados[0].registradopor}
+                        </td>
+                        <td colspan="2">
+                            <p>Firma</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Entrega en punto de dispensación</td>
+                        <td></td>
+                        <td colspan="2">Nombre Completo</td>
+                    </tr>
+                    <tr>
+                        <td>Entrega en domicilio paciente</td>
+                        <td></td>
+                        <td>D. Identificación</td>
+                        <td>Celular</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="modal_eliminar" class="div_dad_delete">
+        <div class="div_modal_lote_fecha text-center">
+            <h6>¿Seguro que desea eliminar el entregado numero ${numeroEntregado}?</h6>
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                    <button type="button" id="btn_confirmar" class="btn btn-custom w-50">Confirmar</button>
+                    <button type="button" id="btn_cancelar" class="btn btn-custom ml-2 w-50">Cancelar</button>
+                </div>
+        </div>
+    </div>
+</body>
+                `
+
+
+                                    const nuevaVentana = window.open('', '_blank', 'width=1000,height=600');
+                                    nuevaVentana.document.write(tablaEntregados);
+                                    nuevaVentana.document.close();
+                                    nuevaVentana.onload = () => {
+                                        const btnEliminar = nuevaVentana.document.getElementById('btn_eliminar_entregado');
+                                        const modal = nuevaVentana.document.getElementById('modal_eliminar');
+                                        const confirmar = nuevaVentana.document.getElementById('btn_confirmar');
+                                        const cancelar = nuevaVentana.document.getElementById('btn_cancelar');
+                                        if (role == 'superUser') {
+                                            btnEliminar.style.display = 'block';
+                                            btnEliminar.addEventListener('click', () => {
+                                                modal.style.display = 'flex';
+                                            });
+                                            cancelar.addEventListener('click', () => {
+                                                    modal.style.display = 'none';
+                                                });
+                                            confirmar.addEventListener('click', () => {
+                                                const numeroEntregadoSend = parseInt(numeroEntregado, 10)
+                                                const identificacionSend = parseInt(data.paciente.identificacion, 10)
+                                                const dataToSend = {
+                                                    username: username,
+                                                    numerodelentregado: numeroEntregadoSend,
+                                                    identificacion: identificacionSend
+                                                };
+                                                fetch('/mover-a-reciclaje-entregados', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json'
+                                                    },
+                                                    body: JSON.stringify(dataToSend)
+                                                })
+                                                    .then(response => {
+                                                        if (!response.ok) {
+                                                            throw new Error('Error en la solicitud del servidor');
+                                                        }
+                                                        return response.json();
+                                                    })
+                                                    .then(data => {
+                                                        if (data.success) {
+                                                            filaReferencia.remove();
+                                                            nuevaVentana.close(); // Cierra la ventana
+                                                            console.log('Ventana cerrada correctamente.');
+                                                        } else {
+                                                            console.error('Hubo un problema con la operación:', data);
+                                                        }
+                                                    })
+                                                    .catch(error => console.error('Error:', error));
+
+                                                //Actualizamos datos en pendientes
+                                                const pendientesArray = dataIn.entregados
+                                                    .filter(p => p.npendiente !== null)
+                                                    .map(p => p.npendiente);
+
+                                                for (const pendiente of pendientesArray) {
+                                                    // Deserializar el valor "P1-2021" para obtener el índice y el ID
+                                                    const match = pendiente.match(/^P(\d+)-(\d+)$/);
+
+                                                    if (!match) {
+                                                        console.error(`Formato inválido: ${pendiente}`);
+                                                        continue;
+                                                    }
+
+                                                    const indice = parseInt(match[1], 10); // Extraer el índice
+                                                    const id = parseInt(match[2], 10); // Extraer el ID
+
+                                                    // Realizar la solicitud al endpoint
+                                                    fetch('/eliminar-cantidad-pendiente', {
+                                                        method: 'POST',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify({ id, indice })
+                                                    })
+                                                        .then(response => {
+                                                            if (!response.ok) {
+                                                                throw new Error(`Error en la actualización para ${pendiente}`);
+                                                            }
+                                                            return response.json();
+                                                        })
+                                                        .then(data => {
+                                                            console.log(`Actualización exitosa para ${pendiente}:`, data);
+                                                        })
+                                                        .catch(error => {
+                                                            console.error(`Error al actualizar ${pendiente}:`, error);
+                                                        });
+                                                }
+                                            }); // Fin del btn confirmar
+                                        }; //Finaliza if de superUser
+                                    }// Finaliza el onload
+                                }).catch(error => {
+                                    console.error('Error en la solicitud:', error);
+                                    const errorMensaje = document.createElement('p');
+                                    errorMensaje.textContent = 'Ocurrió un error al obtener los datos. Inténtalo nuevamente.';
+                                    document.body.appendChild(errorMensaje); // Mostrar el mensaje de error en la página
+                                });
+                        });
+                    })
+
+                } else {
+                    entregadosDiv.innerHTML = `
+                <div class="f-flex justify-content-center text-center">
+                    <h3>No hay medicamentos entregados para esta identificación.</h3>
+                <div/>
+                `;
+                }
+
+                const cpf_styles = document.querySelectorAll('.tdPendientesFinal');
+                const inputs_des = document.querySelectorAll('.cantidad-entregada');
+                cpf_styles.forEach((celda, index) => {
+                    // Verifica si el valor de la celda es 0
+                    if (parseInt(celda.textContent) === 0) {
+                        // Cambia el fondo de la celda a verde
+                        celda.style.backgroundColor = '#5edd9e';
+                        inputs_des[index].disabled = true;
+                    }
+                });
+
+                // Mostrar el resultado
+                resultDiv.style.display = 'block'; // Asegúrate de que el resultado del paciente se muestre
+                entregadosDiv.style.display = 'block'; // Asegúrate de que se muestre el div de pendientes
+            });
+    });
+
+    // Mostrar el modal de opciones
+    function mostrarOpciones() {
+        document.getElementById('modalOpciones').style.display = 'block';
+    }
+
+    // Cerrar el modal de opciones
+    function cerrarModal() {
+        document.getElementById('modalOpciones').style.display = 'none';
+    }
+
+    document.getElementById('generar-reporte-btn').addEventListener('click', () => {
+            // Redirige a la ruta de descarga
+            window.location.href = '/descargar-entregados';
+        });
+
+    // Llamar al servidor para generar el reporte por fecha
+    async function generarReporteHoy() {
+        const fechaActual = `${year}-${month}-${day}`;
+        cerrarModal()
+        // Mostrar el letrero de SweetAlert2
+        const loader = Swal.fire({
+            title: 'Generando reporte...',
+            text: 'Se está descargando el archivo, por favor espera...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        try {
+            const response = await fetch(`/generar-reporte-hoy-entregados?fechaActual=${fechaActual}`);
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `reporte_entregados_${fechaActual}.xlsx`; // El nombre del archivo
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                // Mensaje de éxito con duración de 1 segundo
+                Swal.fire('¡Éxito!', 'El reporte se ha generado correctamente.', 'success');
+            } else {
+                const errorData = await response.json();
+                console.error('Error al generar el reporte:', errorData.error);
+                // Mensaje de error
+                Swal.fire('Error', errorData.error, 'error');
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+            // Mensaje de error en caso de fallo
+            Swal.fire('Error', 'Ocurrió un error al generar el reporte.', 'error');
+        }
+    }
+
+    document.getElementById('logoutButton').addEventListener('click', function () {
+        // Hacer una solicitud al servidor para cerrar la sesión
+        fetch('/logout', {
+            method: 'POST',
+            credentials: 'include'  // Incluir cookies en la solicitud
+        }).then(response => {
+            if (response.ok) {
+                // Redirigir a la página de login después de cerrar sesión
+                window.location.href = '/login.html';
+            }
+        }).catch(error => {
+            console.error('Error al cerrar sesión:', error);
+        });
+    });
+
+
+    // BUSCAR POR CEDULA Y DEVUELVE SEDE Y USUARIO
+    document.getElementById('AU_identificacion_buscar').addEventListener('blur', function () {
+        const cedula = document.getElementById('AU_identificacion_buscar').value.trim().toUpperCase();
+
+        // Si el campo está vacío, no hacer nada
+        if (cedula === '') {
+            document.getElementById('AU_username1').value = '';
+            document.getElementById('AU_sede1').value = '';
+            return;
+        }
+
+        // Realizamos la solicitud al backend para obtener el usuario por cédula
+        fetch(`/ObtenerUsuario/${cedula}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Usuario no encontrado');
+                    console.log('holaa ')
+                }
+                return response.json(); // Parsear la respuesta JSON
+            })
+            .then(data => {
+                // Si el usuario existe, autocompletar los campos
+                document.getElementById('AU_username1').value = data.username;
+                document.getElementById('AU_sede1').value = data.sede;
+            })
+            .catch(error => {
+                // Si ocurre un error, limpiar los campos y mostrar el mensaje
+                document.getElementById('AU_username1').value = '';
+                document.getElementById('AU_sede1').value = '';
+                // Aquí puedes mostrar el mensaje de error si es necesario
+                Swal.fire({
+                    title: error.message,
+                    text: "Por favor, ingrese una identificación válida",
+                    icon: "error"
+                    })
+                document.getElementById('AU_identificacion_buscar').value = '';
+            });
+    });
+
+    // También puedes agregar el evento 'keydown' para detectar la tecla 'Tab' y hacer la búsqueda
+    document.getElementById('AU_identificacion_buscar').addEventListener('keydown', function (event) {
+        // Si el usuario presiona Tab (keyCode 9), hacer la búsqueda
+        if (event.key === "Tab") {
+            const cedula = document.getElementById('AU_identificacion_buscar').value.trim().toUpperCase();
+
+            // Si el campo está vacío, no hacer nada
+            if (cedula === '') {
+                document.getElementById('AU_username1').value = '';
+                document.getElementById('AU_sede1').value = '';
+                return;
+            }
+
+            // Realizamos la solicitud al backend para obtener el usuario por cédula
+            fetch(`/ObtenerUsuario/${cedula}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Usuario no encontrado');
+                    }
+                    return response.json(); // Parsear la respuesta JSON
+                })
+                .then(data => {
+                    // Si el usuario existe, autocompletar los campos
+                    document.getElementById('AU_username1').value = data.username;
+                    document.getElementById('AU_sede1').value = data.sede;
+                })
+                .catch(error => {
+                    // Si ocurre un error, limpiar los campos y mostrar el mensaje
+                    document.getElementById('AU_username1').value = '';
+                    document.getElementById('AU_sede1').value = '';
+                    // Aquí puedes mostrar el mensaje de error si es necesario
+                });
+        }
+    });
+
+    // Escuchar el evento cuando el usuario hace clic en el botón de actualizar
+    document.getElementById('actualizar-usuario-btn').addEventListener('click', function () {
+        const cedula = document.getElementById('AU_identificacion_buscar').value.toUpperCase();
+        const sede = document.getElementById('AU_sede2').value;
+
+        // Verificar que la cédula y la nueva sede estén presentes
+        if (!cedula || !sede) {
+            Swal.fire({
+                        title: "Por favor, completa todos los campos antes de actualizar.",
+                        icon: "warning"
+                        });
+            return;
+        }
+
+        // Hacer la solicitud al backend para actualizar la sede
+        fetch('/ActualizarUsuario', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cedula, sede }), // Enviar solo cédula y sede
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Sede actualizada correctamente') {
+                    Swal.fire({
+                        title: "Sede actualizada correctamente",
+                        icon: "success"
+                        });
+                    // Actualizar el campo de sede con la nueva sede
+                    document.getElementById('AU_sede1').value = data.usuario.sede;
+                    // Limpiar todos los campos
+                    document.getElementById('AU_identificacion_buscar').value = '';
+                    document.getElementById('AU_sede2').value = '';
+                    document.getElementById('AU_sede1').value = '';
+                    document.getElementById('AU_username1').value = '';
+                } else {
+                    Swal.fire({
+                            title: "Error al actualizar la sede",
+                            icon: "error"
+                        })
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                Swal.fire({
+                            title: "Hubo un problema con la solicitud para actualizar la sede",
+                            icon: "error"
+                    })
+            });
+    });
+
+    document.getElementById('AU_identificacion').addEventListener('blur', () => {
+        const cedula = document.getElementById('AU_identificacion').value;
+
+        // Hacer la solicitud al servidor para validar la cédula
+        fetch('/validarCedula', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cedula })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'La cédula ya está registrada') {
+                    Swal.fire({
+                    title: "La identificación ya está registrada.",
+                    text: "Por favor, ingrese una cédula diferente.",
+                    icon: "warning"
+                    })
+                    document.getElementById('AU_identificacion').value = "";
+                } else if (data.message === 'La cédula está disponible') {
+                    console.log('La cédula está disponible.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    })
+    document.getElementById('agregar-usuario-btn').addEventListener('click', function () {
+        const nombre = document.getElementById('AU_nombre').value.toUpperCase();
+        const identificacion = document.getElementById('AU_identificacion').value;
+        const username = document.getElementById('AU_username').value;
+        const password = document.getElementById('AU_password').value;
+        const sede = document.getElementById('AU_sede').value;
+        const rol = document.getElementById('AU_rol').value;
+
+
+        // Array para almacenar los mensajes de error
+        let missingFields = [];
+
+        // Verificar qué campos están vacíos
+        if (!nombre) missingFields.push('Nombre');
+        if (!identificacion) missingFields.push('Identificación');
+        if (!username) missingFields.push('Username');
+        if (!password) missingFields.push('Password');
+        if (!sede) missingFields.push('Sede');
+        if (!rol) missingFields.push('Rol');
+
+        if (missingFields.length > 0) {
+                Swal.fire({
+                    title: "Campos Obligatorios",
+                    html: "Por favor completa los siguientes campos obligatorios: <br> - " + missingFields.join(' <br> - '),
+                    icon: "warning",
+                    confirmButtonText: "Aceptar"
+                });
+                return;
+            }
+        // Estructura de datos que se enviará al servidor
+        const usuario = {
+            nombrecompleto: nombre,
+            cedula: identificacion,
+            username: username,
+            password: password,
+            sede: sede,
+            role: rol
+        };
+        // Realizar la solicitud al servidor
+        fetch('/agregarUsuario', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(usuario),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    Swal.fire({
+                    title: "Usuario agregado correctamente",
+                    icon: "success"
+                    })
+                } else {
+                    Swal.fire({
+                            title: "Error al agregar usuario",
+                            icon: "error"
+                            })
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                Swal.fire({
+                            title:"Hubo un problema con la solicitud",
+                            icon: "error"
+                            })
+            });
+
+        document.getElementById('AU_nombre').value = ""
+        document.getElementById('AU_identificacion').value = ""
+        document.getElementById('AU_username').value = ""
+        document.getElementById('AU_password').value = ""
+        document.getElementById('AU_sede').value = ""
+        document.getElementById('AU_rol').value = ""
+    });
+
+    document.getElementById('modalidad').addEventListener('change', function() {
+        const selectedValue = this.value;
+        const codigomipres = document.getElementById('CodigoMipres')
+        const NumAutorizacion = document.getElementById('NumAutorizacion')
+        const NumValidacionPGP = document.getElementById('NumValidacionPGP')
+        const NumAutorizacionMipres = document.getElementById('NumAutorizacionMipres')
+        const eps = document.getElementById('eps').value;
+
+        if (selectedValue=='CAPITA'){ 
+            codigomipres.disabled = true;
+            NumAutorizacion.disabled = true;
+            NumValidacionPGP.disabled = true;
+            NumAutorizacionMipres.disabled = true;
+            NumAutorizacionMipres.value = '';
+            NumValidacionPGP.value = '';
+            codigomipres.value = '';
+            NumAutorizacion.value = '';
+        }
+        if (selectedValue=='EVENTO'){
+            codigomipres.disabled = true;
+            NumAutorizacion.disabled = false;
+            NumValidacionPGP.disabled = true;
+            NumAutorizacionMipres.disabled = true;
+            NumAutorizacionMipres.value = '';
+            NumValidacionPGP.value = '';
+            codigomipres.value = '';
+            NumAutorizacion.value = '';
+        }
+        if (selectedValue=='PGP'){
+            codigomipres.disabled = true;
+            NumAutorizacion.disabled = true;
+            NumValidacionPGP.disabled = false;
+            NumAutorizacionMipres.disabled = true;
+            NumAutorizacionMipres.value = '';
+            codigomipres.value = '';
+            NumAutorizacion.value = '';
+        }
+        if (selectedValue=='MIPRES'){
+            codigomipres.disabled = false;
+            NumValidacionPGP.disabled = true;
+            NumAutorizacion.disabled = true;
+            NumValidacionPGP.value = '';
+            codigomipres.value = '';
+            NumAutorizacion.value = '';
+            if (eps === 'SANITAS EPS' || eps === 'SOS SALUD') {
+                NumAutorizacionMipres.disabled = false;
+            }
+        }
+
+    });
+    document.getElementById('regimen').addEventListener('change', function() {
+        const selectedValue = this.value;
+        const valorInput = document.getElementById('valorCopago');
+
+        if ( selectedValue == 'SUBSIDIADO' ){
+            document.getElementById('copagoLista').disabled = true;
+            document.getElementById('copagoLista').value = 'SUBSIDIADO';
+            document.getElementById('rango').value = '';
+            // Mantiene el input pero permite valores numéricos
+            const inputNumber = document.createElement('input');
+            inputNumber.type = 'number';
+            inputNumber.className = 'form-control form-inline-input';
+            inputNumber.id = 'valorCopago';
+            inputNumber.disabled = true;
+            inputNumber.value = '0';
+            valorInput.parentNode.replaceChild(inputNumber, valorInput);
+        };
+
+        if ( selectedValue == 'CONTRIBUTIVO' ){
+            document.getElementById('copagoLista').disabled = false;
+            document.getElementById('valorCopago').value = '';
+            document.getElementById('copagoLista').value = '';
+        }
+
+    })
+
+    document.getElementById('copagoLista').addEventListener('change', function() {
+        const valorInput = document.getElementById('valorCopago');
+        const selectedValue = this.value;
+    
+        // Limpia el campo valor
+        // valorInput.value = '';
+
+        if (selectedValue === 'CUOTA MODERADORA') {
+            // Cambia el input a un select
+            const options = [4700, 19200, 50300];
+            const select = document.createElement('select');
+            select.className = 'form-control form-inline-input';
+            select.id = 'valorCopago';
+            
+            const primerOpcion = document.createElement('option');
+            primerOpcion.value = '';
+            primerOpcion.textContent = 'Seleccione una opción'; 
+            primerOpcion.selected = true; 
+            primerOpcion.disabled = true; 
+            
+            const exento = document.createElement('option');
+            exento.value = "EXENTO";
+            exento.textContent = 'EXENTO';
+            
+            select.appendChild(primerOpcion);
+            select.appendChild(exento);
+
+            options.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                select.appendChild(opt);
+            });
+
+            select.addEventListener('change', function() {
+                const opcion = this.value;
+                const rango = document.getElementById('rango');
+                if (opcion == '4700'){
+                    rango.value = 'TIPO A';
+                } else if (opcion == '19200') {
+                    rango.value = 'TIPO B';
+                } else if (opcion == '50300') {
+                    rango.value = 'TIPO C';
+                } else {
+                    rango.value = '';
+                }
+            });
+
+            // Reemplaza el input por el select
+            valorInput.parentNode.replaceChild(select, valorInput);
+        } else if (selectedValue === 'COPAGO') {
+            document.getElementById('rango').value = '';
+            // Mantiene el input pero permite valores numéricos
+            const inputNumber = document.createElement('input');
+            inputNumber.type = 'number';
+            inputNumber.className = 'form-control form-inline-input';
+            inputNumber.id = 'valorCopago';
+
+            valorInput.parentNode.replaceChild(inputNumber, valorInput);
+        }
+    });
+
+    document.getElementById('CodigoMipres').addEventListener('blur', (event) => {
+        const identificacion = document.getElementById('identificacionId').value;
+        const valorCodigoMipres = event.target.value;
+        if (identificacion == valorCodigoMipres) {
+            Swal.fire({
+                title: "Advertencia",
+                text: "El Código Mipres no puede ser igual al Numero de Identificación.",
+                icon: "warning"
+                });
+                event.target.value = '';
+        };
+        if (identificacion == '') {
+            Swal.fire({
+                title: "Advertencia",
+                text: "Ingrese el  numero de Identificación",
+                icon: "warning"
+                });
+                event.target.value = '';
+        };
+    });
+
+    document.getElementById('NumAutorizacion').addEventListener('blur', (event) => {
+        const identificacion = document.getElementById('identificacionId').value;
+        const valorNumAutorizacion = event.target.value;
+        if (identificacion == valorNumAutorizacion) {
+            Swal.fire({
+                title: "Advertencia",
+                text: "El Numero de Autorización no puede ser igual al Numero de Identificación.",
+                icon: "warning"
+                });
+                event.target.value = '';
+        };
+        if (identificacion == '') {
+            Swal.fire({
+                title: "Advertencia",
+                text: "Ingrese el  numero de Identificación",
+                icon: "warning"
+                });
+                event.target.value = '';
+        };
+    });
+
+    document.getElementById('agregar-medicamento-btn').addEventListener('click', function () {
+        
+        const nombre = document.getElementById('AM_nombre').value.toUpperCase();
+        const laboratorio = document.getElementById('AM_laboratorio').value.toUpperCase();
+        const tipo = document.getElementById('AM_tipo_producto').value;
+        const cobertura = document.getElementById('AM_cobertura').value;
+        const cum = document.getElementById('AM_cum').value;
+        // Crear un objeto con los datos a enviar
+
+        // Array para almacenar los mensajes de error
+        let missingFields = [];
+            
+            if (!nombre) missingFields.push('Nombre del Medicamento');
+            if (!laboratorio) missingFields.push('Laboratorio');
+            if (!AM_tipo_producto) missingFields.push('Tipo producto');
+            if (!tipo) missingFields.push('Tipo del Producto');
+            if (!cobertura) missingFields.push('Cobertura');
+            if (!cum) missingFields.push('Cum');
+            
+            
+
+            if (missingFields.length > 0) {
+                    Swal.fire({
+                        title: "Campos Obligatorios",
+                        html: "Por favor completa los siguientes campos obligatorios: <br> - " + missingFields.join(' <br> - '),
+                        icon: "warning",
+                        confirmButtonText: "Aceptar"
+                    });
+                    return;
+                }
+
+        const medicamento = {
+            nombre,
+            laboratorio,
+            tipo,
+            cobertura,
+            cum
+        };
+        // Realizar la solicitud POST al servidor
+        fetch('/agregarMedicamentos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',  // Definimos el tipo de contenido que estamos enviando
+            },
+            body: JSON.stringify(medicamento)  // Enviamos los datos como un JSON
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();  // Si la respuesta es exitosa, procesamos la respuesta
+                } else {
+                    throw new Error('Error al agregar medicamento');
+                }
+            })
+            .then((data) => {
+                Swal.fire({
+                        title: "Medicamento agregado correctamente",
+                        icon: "success",
+                        confirmButtonText: "Aceptar"
+                    });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                Swal.fire({
+                        title: "Hubo un problema con la solicitud",
+                        icon: "error",
+                        confirmButtonText: "Aceptar"
+                    });
+            });
+
+       
+        document.getElementById('AM_nombre').value = ""
+        document.getElementById('AM_laboratorio').value = ""
+        document.getElementById('AM_tipo_producto').value = "";
+        document.getElementById('AM_cum').value = ""
+    });
+
+    // Ocultar el botón de generar reporte si el usuario no es administrador
+    if (role == 'user') {
+        document.getElementById('generar-reporte').style.display = 'none';
+        document.getElementById('usuarios-btn').style.display = 'none';
+        document.getElementById('text_actualizar_usuario_SU').style.display = 'none';
+        // document.getElementById('fecha_solicitud').setAttribute('readonly', true);
+    }
+    if (role == 'admin') {
+        document.getElementById('usuarios-btn').style.display = 'none';
+        document.getElementById('text_actualizar_usuario_SU').style.display = 'none';
+    }
+    if (role == 'superUser') {
+        document.getElementById('agregar-paciente-btn-1').innerHTML = 'Agregar';
+        document.getElementById('agregar-paciente-btn-1').addEventListener('click', function () {
+            document.getElementById('agregar_usuario_SU').style.display = 'none';
+            document.getElementById('actualizar_usuario_SU').style.display = 'none';
+            document.getElementById('text_actualizar_usuario_SU').style.display = 'none';
+        });
+        document.getElementById('usuarios-btn').addEventListener('click', function () {
+            document.getElementById('agregar_usuario_SU').style.display = 'block';
+            document.getElementById('agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('text_agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('agregar_usuario').style.display = 'none';
+            document.getElementById('actualizar_usuario_SU').style.display = 'block';
+            document.getElementById('text_actualizar_usuario_SU').style.display = 'block';
+        });
+        document.getElementById('consulta-btn').addEventListener('click', function () {
+            document.getElementById('agregar_usuario_SU').style.display = 'none';
+            document.getElementById('agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('text_agregar_usuario_SU').style.display = 'none';
+            document.getElementById('text_agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('actualizar_usuario_SU').style.display = 'none';
+            document.getElementById('text_actualizar_usuario_SU').style.display = 'none';
+        });
+    }
+    if (role == 'superAdmin') {
+        document.getElementById('agregar-paciente-btn-1').innerHTML = 'Agregar';
+        document.getElementById('agregar-paciente-btn-1').addEventListener('click', function () {
+            document.getElementById('agregar_usuario_SU').style.display = 'none';
+            document.getElementById('actualizar_usuario_SU').style.display = 'none';
+            document.getElementById('text_actualizar_usuario_SU').style.display = 'none';
+            document.getElementById('agregar_medicamento_SU').style.display = 'block';
+            document.getElementById('text_agregar_medicamento_SU').style.display = 'block';
+        });
+        document.getElementById('usuarios-btn').addEventListener('click', function () {
+            document.getElementById('agregar_usuario_SU').style.display = 'block';
+            document.getElementById('agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('text_agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('agregar_usuario').style.display = 'none';
+            document.getElementById('actualizar_usuario_SU').style.display = 'block';
+            document.getElementById('text_actualizar_usuario_SU').style.display = 'block';
+        });
+        document.getElementById('consulta-btn').addEventListener('click', function () {
+            document.getElementById('agregar_usuario_SU').style.display = 'none';
+            document.getElementById('agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('text_agregar_usuario_SU').style.display = 'none';
+            document.getElementById('text_agregar_medicamento_SU').style.display = 'none';
+            document.getElementById('actualizar_usuario_SU').style.display = 'none';
+            document.getElementById('text_actualizar_usuario_SU').style.display = 'none';
+        });
+    }
+</script>

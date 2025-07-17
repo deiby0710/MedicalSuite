@@ -1,0 +1,293 @@
+/* @import "compass/css3"; */
+@import url(https://fonts.googleapis.com/css?family=Vibur);
+
+body {
+    background: linear-gradient(#0a7ad6, #d2eeff);
+    background-attachment: fixed;
+    background-size: cover; /* Asegura que el fondo cubra toda la página */
+    height: 100vh;
+    margin: 0;
+}
+
+.formulario_principal_consulta {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra con un leve desenfoque */
+}
+#texto_principal {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra con un leve desenfoque */
+}
+
+.formulario_principal {
+    /* background-color: #ffeeba; */
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+}
+.formulario_principal_consulta {
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 12px;
+}
+
+.form-control{
+    padding: 0 0.8rem;
+    border-radius: 8px;
+    height: 2rem;
+    font-size: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-id{
+    max-width: 5rem;
+}
+
+.form-paciente{
+    min-width: 20rem;
+}
+.form-plan {
+    min-width: 5rem;
+}
+.form-nit-pres {
+    max-width: 7rem;
+}
+.form-prod{
+    min-width: 30rem;
+    
+}
+
+.btn-custom {
+    width: 14%;
+    padding: 5px;
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+.btn-custom:hover {
+    background-color: #131212;
+    color: white;
+}
+.btn-custom-1{
+    width: 150px;
+    height: 33px;
+    padding: 3px;
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13.5px;
+    margin: 0 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+.tabla-final {
+    border-radius: 10px;
+    padding: 0;
+}
+.btn-buscar-p {
+    width: 100%;
+    padding: 5px;
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-buscar-p:hover {
+    background-color: #3f3f3f;
+    color: white;
+}
+
+
+#successModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+}
+
+#consulta_usuario {
+    display: none;
+    /* background-color: #3f3f3f; */
+}
+
+.last-btn {
+    margin-left: 320px; /* Ajusta el margen izquierdo para moverlo más a la derecha */
+}
+
+.log-btn{
+    width: 150px;
+    height: 33px;
+    padding: 3px;
+    background-color:  #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13.5px;
+    margin: 0 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+/* Bienvenido */
+/* Estilos para el mensaje de bienvenida */
+#username {
+    font-family: 'Arial', sans-serif; /* Mantén la consistencia de la fuente */
+    font-size: 1.2em; /* Tamaño de letra adecuado */
+    font-weight: bold; /* Hacer el texto un poco más llamativo */
+    color: #333333; /* Color oscuro para buena legibilidad */
+    background: linear-gradient(#54b2ff, #54b2ff);
+    padding: 20px 20px; /* Espaciado alrededor del texto */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espacio debajo del mensaje */
+    text-shadow: 2px 2px 0px #2ca7ee, 
+    4px 4px 0px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra suave para darle relieve */
+}
+
+/* Estilos adicionales si deseas agregar una animación sutil */
+#username {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@media print {
+    .botones,
+    .consu
+     { 
+        display: none !important;
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.med-list {
+    max-width: 900px; /* Ajusta el ancho máximo de la lista */
+    width: 120%; /* Asegura que ocupe el ancho completo disponible */
+    background-color: white; /* Fondo blanco para la lista */
+    border: 1px solid #ccc; /* Borde ligero */
+    border-radius: 5px; /* Bordes redondeados */
+    position: absolute; /* Permite que la lista se superponga a otros elementos */
+    z-index: 1000; /* Asegura que la lista aparezca sobre otros elementos */
+    overflow-y: auto; /* Agrega scroll si la lista es demasiado larga */
+    max-height: 200px; /* Limita la altura de la lista */
+    padding: 0; /* Elimina el padding */
+    margin: 0; /* Elimina el margen */
+    list-style-type: none; /* Elimina los puntos de la lista */
+}
+
+/* Estilo para los elementos de la lista */
+.med-list li {
+    padding: 10px; /* Espaciado interno para los elementos de la lista */
+    cursor: pointer; /* Cambia el cursor al pasar sobre los elementos */
+}
+
+.med-list li:hover {
+    background-color: #f0f0f0; /* Cambia el fondo al pasar el mouse */
+}
+
+.table {
+    border-radius: 10px; /* Aplica el border-radius a la tabla */
+    overflow: hidden; /* Evita que las celdas salgan de los bordes redondeados */
+}
+
+.table thead {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6; /* Asegura que el borde no sobrepase */
+}
+
+
+.logo {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px auto; /* Centra la imagen y agrega un espacio inferior */
+    width: 300%;
+}
+
+.logo-container {
+    display: flex; /* Utiliza Flexbox para centrar */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+
+
+@keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(50px); /* Desplazamiento inicial */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0); /* Posición final */
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.div_hijos {
+    background: linear-gradient(#badffd, #a9d4fa);
+    border-radius: 25px;
+    width: 32rem;
+    height: 14rem;
+    animation: slideIn 1s ease-out forwards;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); 
+    border: none;
+}
+
+.div_hijos:hover {
+    transform: scale(1.1); /* Aumenta el tamaño en un 10% */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8); /* Aumenta la sombra para mayor énfasis */
+}
+
+
+.bg-verde {
+    background: linear-gradient(#badffd, #a9d4fa);
+}
+
+.btn-back:hover {
+    background-color: #dc3545;
+    border-color: black;
+}
+.btn-back {
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px; 
+    margin-left: 10px;
+}

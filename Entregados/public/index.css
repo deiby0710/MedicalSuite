@@ -1,0 +1,543 @@
+/* @import "compass/css3"; */
+@import url(https://fonts.googleapis.com/css?family=Vibur);
+
+body {
+    background: linear-gradient(#28b550, #d3fadf);
+    background-attachment: fixed;
+    background-size: cover; /* Asegura que el fondo cubra toda la página */
+    height: 100vh;
+    margin: 0;
+}
+
+#id_formulario_principal {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra con un leve desenfoque */
+}
+
+.formulario_principal_consulta {
+    width: 70%; /* Ajusta el ancho */
+    margin: 10px auto; /* Centra el formulario */
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 12px;
+}
+#texto_principal {
+    text-shadow:
+    2px 2px 0px #2daf63, 
+    4px 4px 0px rgba(0, 0, 0, 0.2); 
+}
+
+.formulario_principal {
+    background: #dff8e5;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra con un leve desenfoque */
+}
+
+.form-control{
+    padding: 0 0.8rem;
+    border-radius: 8px;
+    height: 2rem;
+    font-size: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-id{
+    max-width: 5rem;
+}
+
+.form-paciente{
+    min-width: 20rem;
+}
+.form-plan {
+    min-width: 5rem;
+}
+.form-nit-pres {
+    max-width: 7rem;
+}
+.form-prod{
+    min-width: 30rem;
+    
+}
+
+.btn-custom {
+    width: 14%;
+    padding: 5px;
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+.btn-custom:hover {
+    background-color: #131212;
+    color: white;
+}
+.btn-custom-1{
+    width: 150px;
+    height: 33px;
+    padding: 3px;
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13.5px;
+    margin: 0 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+.tabla-final {
+    border-radius: 10px;
+    padding: 0;
+}
+.btn-buscar-p {
+    width: 100%;
+    padding: 5px;
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-buscar-p:hover {
+    background-color: #3f3f3f;
+    color: white;
+}
+
+.div_botones {
+    display: flex;
+    justify-content: space-between; /* Espacio entre grupos */
+    align-items: center; /* Centra verticalmente */
+}
+
+.btn-group {
+    display: flex; /* Alinea los botones en línea */
+    gap: 10px; /* Espacio entre los botones */
+}
+@media (max-width: 1260px) {
+    .div_botones {
+        flex-direction: column; /* Cambia a columna */
+        align-items: center; /* Alinea a la izquierda */
+    }
+    
+    .btn-group:last-child {
+        margin-top: 10px; /* Agrega un margen superior para separar los grupos */
+    }
+}
+
+#successModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+}
+
+#consulta_usuario {
+    display: none;
+    /* background-color: #3f3f3f; */
+}
+
+.last-btn {
+    margin-left: 145px; /* Ajusta el margen izquierdo para moverlo más a la derecha */
+}
+
+.log-btn{
+    width: 50px;
+    height: 33px;
+    padding: 3px;
+    background-color:  #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13.5px;
+    margin: 0 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+/* Bienvenido */
+/* Estilos para el mensaje de bienvenida */
+#username {
+    font-family: 'Arial', sans-serif; /* Mantén la consistencia de la fuente */
+    font-size: 1.2em; /* Tamaño de letra adecuado */
+    font-weight: bold; /* Hacer el texto un poco más llamativo */
+    color: #333333; /* Color oscuro para buena legibilidad */
+    background-color:  #62e797; /* Fondo amarillo similar al estilo de la página */
+    padding: 20px 20px; /* Espaciado alrededor del texto */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espacio debajo del mensaje */
+    text-shadow: 2px 2px 0px #2ecc82, 
+    4px 4px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra suave para darle relieve */
+}
+
+/* Estilos adicionales si deseas agregar una animación sutil */
+#username {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@media print {
+    .botones,
+    .consu
+     { 
+        display: none !important;
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.med-list {
+    max-width: 900px; /* Ajusta el ancho máximo de la lista */
+    width: 120%; /* Asegura que ocupe el ancho completo disponible */
+    background-color: white; /* Fondo blanco para la lista */
+    border: 1px solid #ccc; /* Borde ligero */
+    border-radius: 5px; /* Bordes redondeados */
+    position: absolute; /* Permite que la lista se superponga a otros elementos */
+    z-index: 1000; /* Asegura que la lista aparezca sobre otros elementos */
+    overflow-y: auto; /* Agrega scroll si la lista es demasiado larga */
+    max-height: 200px; /* Limita la altura de la lista */
+    padding: 0; /* Elimina el padding */
+    margin: 0; /* Elimina el margen */
+    list-style-type: none; /* Elimina los puntos de la lista */
+}
+
+/* Estilo para los elementos de la lista */
+.med-list li {
+    padding: 10px; /* Espaciado interno para los elementos de la lista */
+    cursor: pointer; /* Cambia el cursor al pasar sobre los elementos */
+}
+
+.med-list li:hover {
+    background-color: #f0f0f0; /* Cambia el fondo al pasar el mouse */
+}
+
+.sede-list {
+    max-width: 185px; /* Ajusta el ancho máximo de la lista */
+    width: 120%; /* Asegura que ocupe el ancho completo disponible */
+    background-color: white; /* Fondo blanco para la lista */
+    border: 1px solid #ccc; /* Borde ligero */
+    border-radius: 5px; /* Bordes redondeados */
+    position: absolute; /* Permite que la lista se superponga a otros elementos */
+    z-index: 1000; /* Asegura que la lista aparezca sobre otros elementos */
+    overflow-y: auto; /* Agrega scroll si la lista es demasiado larga */
+    max-height: 200px; /* Limita la altura de la lista */
+    padding: 0; /* Elimina el padding */
+    margin: 0; /* Elimina el margen */
+    list-style-type: none; /* Elimina los puntos de la lista */
+}
+
+/* Estilo para los elementos de la lista */
+.sede-list li {
+    padding: 10px; /* Espaciado interno para los elementos de la lista */
+    cursor: pointer; /* Cambia el cursor al pasar sobre los elementos */
+}
+
+.sede-list li:hover {
+    background-color: #f0f0f0; /* Cambia el fondo al pasar el mouse */
+}
+
+.table {
+    border-radius: 10px; /* Aplica el border-radius a la tabla */
+    overflow: hidden; /* Evita que las celdas salgan de los bordes redondeados */
+}
+
+.table thead {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+.logo1 {
+    width: 500px;
+    height: auto; /* Mantiene la proporción */
+}
+.px_letras {
+    font-size: 13px;
+}
+.ocultar {
+    display: none;
+}
+
+.delete-button {
+    background-color: transparent;
+    border: none;
+}
+@media print {
+    /* Estilos para la impresión */
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 12pt; /* Tamaño de fuente más adecuado para impresión */
+        height: 80vh;
+    }
+
+    .row {
+        display: flex; /* Asegura que los elementos en fila se mantengan juntos */
+        flex-wrap: wrap; /* Permite que los elementos se ajusten si es necesario */
+    }
+
+    .col-md-4 {
+        flex: 1; /* Permite que las columnas se ajusten proporcionalmente */
+        min-width: 150px; /* Ajusta el ancho mínimo de las columnas */
+    }
+
+    /* Oculta elementos no deseados en la impresión */
+    .no-print, #guardar-btn, #vaciar-btn, .user {
+        display: none; /* Puedes agregar esta clase a cualquier elemento que no quieras imprimir */
+    }
+
+    /* Opcional: Ajusta otros elementos según sea necesario */
+    h4, h5 {
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Ajustes para inputs */
+    input {
+        width: auto; /* Asegúrate de que los inputs no ocupen más espacio del necesario */
+        margin: 0; /* Elimina márgenes */
+    }
+    .imprimir {
+        display: block;
+    }
+    .black_color{
+        color: black;
+    }
+
+    .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.table1.table-bordered td,
+.table1.table-bordered th {
+    padding: 5px; /* Ajusta el valor para cambiar el espaciado */
+}
+
+.texto-justificado {
+    text-align: justify;
+}
+
+}
+
+
+
+/* Modal Lote y fecha vencimiento*/
+.div_padre_modal_lote_fecha, .div_dad_delete {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.5); 
+    justify-content: center; 
+    align-items: center;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.div_modal_lote_fecha {
+    background: linear-gradient(#2ec47e, #d3ffe0);
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+.div_modal_lote_fecha h3 {
+    text-align: center;
+    color: black; /* Color verde como tu esquema */
+    margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------- */
+
+ /* Estilos para el fondo oscuro del modal */
+ .modal2 {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    animation: fadeIn 0.3s ease-out;
+    
+}
+
+/* Animación de apertura suave */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    background-color: #def6e9;
+    margin: 10% auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 50%; /* Puedes ajustar el tamaño */
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Animación de entrada para el contenido */
+@keyframes slideIn {
+    0% { transform: translateY(-30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Títulos dentro del modal */
+.modal-content h3 {
+    text-align: center;
+    font-size: 22px;
+    color: black;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1px;
+    
+}
+/* Títulos dentro del modal */
+.modal-content h4 {
+    text-align: center;
+    font-size: 19px;
+    color: black;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1px;
+    
+}
+
+/* Estilo de los botones dentro del modal */
+.modal-content button {
+    margin: 8px 0;
+    padding: 8px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    width: 70%;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: block; /* Asegura que cada botón ocupe su línea */
+    margin-left: auto; /* Centrado horizontal */
+    margin-right: auto; /* Centrado horizontal */
+}
+
+.modal-content button:hover {
+    background-color: #4CAF50;
+}
+
+/* Estilo para los inputs de fecha */
+.modal-content input[type="date"] {
+    width: 60%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 9px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    display: block; /* Asegura que cada botón ocupe su línea */
+    margin-left: auto; /* Centrado horizontal */
+    margin-right: auto; /* Centrado horizontal */
+}
+
+
+.div-btn-back{
+    width: 31px;
+    height: 31px;
+    margin-left: 10px;
+    position: absolute;
+}
+
+.btn-back:hover {
+    background-color: #dc3545;
+    border-color: black;
+}
+.btn-back {
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+}
+
+/* Modal del btn_eliminar */
+#modal_eliminar {
+    position: fixed; /* Hace que el modal esté fijo en la pantalla */
+    display: none;
+    top: 0; /* Asegura que el modal comience desde la parte superior */
+    left: 0; /* Asegura que el modal comience desde la parte izquierda */
+    width: 100%; /* El modal ocupa el 100% del ancho */
+    height: 100%; /* El modal ocupa el 100% de la altura */
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    z-index: 9999; /* Asegura que el modal esté por encima de otros elementos */
+}
+
+.awesomplete {
+    display: block !important; /* Cambiar display a inline-block */
+}
+
+.awesomplete ul {
+    max-height: 200px; /* Ajusta el tamaño máximo del contenedor */
+    overflow-y: auto;  /* Habilita el scroll vertical */
+    border: 1px solid #ccc; /* Opcional: estilo del borde */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
