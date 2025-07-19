@@ -479,6 +479,26 @@
         <h3>Selecciona una Opción</h3>
         <button id="generar-reporte-btn">Generar Reporte Completo</button>
         <button onclick="generarReporteHoy()">Generar Reporte del Día</button>
+        <button onclick="menuReporteCyS()">Control y Seguimiento</button>
+        <button onclick="cerrarModal()">Cancelar</button>
+    </div>
+</div>
+
+    <!-- Modal reporte control y seguimiento -->
+<div id="modalCyS" class="modal2" style="display: none; z-index: 9999;">
+    <div class="modal-content d-flex justify-content-center align-items-center">
+        <h6 class="my-3">Selecciona EPS</h6>
+        <select id="CySeps" class="form-control form-eps form-inline-input w-75 mb-3" required>
+        <option value="" selected disabled>Seleccione una opción</option>
+        <option value="EMSSANAR EPS SAS">EMSSANAR EPS SAS</option>
+        <option value="MALLAMAS EPS">MALLAMAS EPS</option>
+        <option value="SANITAS EPS">SANITAS EPS</option>
+        <option value="ASMET SALUD EPS">ASMET SALUD EPS</option>
+        <option value="SOS SALUD">SOS SALUD</option>
+        </select>
+        <h6>Selecciona Fecha</h6>
+        <input type="date" class="form-control w-75" id="CySdate">
+        <button onclick="generarReporteCyS()">Control y Seguimiento</button>
         <button onclick="cerrarModal()">Cancelar</button>
     </div>
 </div>
@@ -532,6 +552,19 @@
     inputFecha.value = fechaFormateada;
     inputFecha.setAttribute("max", fechaFormateada);
 
+    // Reporte CyS
+    const inputFechaCyS = document.getElementById('CySdate');
+    const formatearFecha = (fecha) => {
+        const year = fecha.getFullYear();
+        const month = String(fecha.getMonth() + 1).padStart(2, '0');
+        const day = String(fecha.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+    const primerDiaMes = formatearFecha(new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1));
+    inputFechaCyS.min = primerDiaMes;
+    inputFechaCyS.max = formatearFecha(fechaActual);
+    inputFechaCyS.value = formatearFecha(fechaActual); // valor por defecto
+    
     // -----------------------------------------------------------------------
 
     
@@ -1660,6 +1693,7 @@ function mostrarOpciones() {
     // Cerrar el modal de opciones
     function cerrarModal() {
         document.getElementById('modalOpciones').style.display = 'none';
+        document.getElementById('modalCyS').style.display = 'none';
     }
 
     document.getElementById('generar-reporte-btn').addEventListener('click', () => {
@@ -1709,6 +1743,74 @@ function mostrarOpciones() {
         }
     }
 
+    async function generarReporteCyS() {
+        const eps = document.getElementById('CySeps').value;
+        const fecha = document.querySelector('#modalCyS input[type="date"]').value;
+        // El primer dia esta en: primerDiaMes
+        if (!eps) {
+            alert('Por favor selecciona una EPS');
+            return;
+        }
+
+        if (!fecha) {
+            alert('Por favor selecciona una fecha válida');
+            return;
+        }
+
+        cerrarModal()
+        // Mostrar el letrero de carga con SweetAlert2
+        const loader = Swal.fire({
+            title: 'Generando reporte...',
+            text: 'Se está procesando el archivo, por favor espera...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        try {
+            const body = {
+                fechaInicio: primerDiaMes,
+                fechaFin: fecha,
+                eps: eps
+            };
+            // Realizar la solicitud al servidor
+            const response = await fetch('/generar-reporte-CyS-pendientes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `reporte_CyS.xlsx`; // El nombre del archivo
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                // Mostrar mensaje de éxito
+                Swal.fire('¡Éxito!', 'El reporte se ha generado correctamente.', 'success');
+            } else {
+                const errorData = await response.json();
+                console.error('Error al generar el reporte:', errorData.error);
+                Swal.fire('Error', errorData.error || 'Ocurrió un error al generar el reporte.', 'error');
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+            Swal.fire('Error', 'Ocurrió un error inesperado al generar el reporte.', 'error');
+        }
+    }
+
+    async function menuReporteCyS() {
+        document.getElementById('modalOpciones').style = 'display: none;'
+        document.getElementById('modalCyS').style = 'display: block'
+        console.log("Acabamos menuReporteCyS")
+    }
 
         document.getElementById('logoutButton').addEventListener('click', function() {
         // Hacer una solicitud al servidor para cerrar la sesión

@@ -642,6 +642,73 @@ app.get('/generar-reporte-hoy-pendientes', (req, res) => {
         });
 });
 });
+app.post('/generar-reporte-CyS-pendientes', (req, res) => {
+    // Obtener las fechas de la consulta
+    const { fechaInicio, fechaFin, eps } = req.body;
+
+    if (!fechaInicio || !fechaFin || !eps) {
+        return res.status(400).json({ error: 'Debes enviar fechaInicio, fechaFin y eps' });
+        }
+    
+    // Consulta SQL para obtener datos dentro del rango de fechas
+    const query = `
+    SELECT idpendientes, numerofactura, fecharegistro,identificacion, tipoidentificacion, nombre, eps, celular, celular2, direccion,
+    medicamento, tipoproducto, laboratorio, cantidadprescrita, cantidadpendiente, cantidadentregada, cantidadpendientefinal, controlmensual,
+    tipoentrega, sedependiente, estadodispensacion, numeroformula, cum, nitips,nombreips, codigodiagnostico, diagnostico, fechaformula, observacion,registradopor 
+    FROM pendientes WHERE fecharegistro BETWEEN ? AND ? AND eps = ?;
+`;
+
+    connection.query(query, [fechaInicio, fechaFin, eps], (error, results) => {
+        if (error) {
+            return res.status(500).json({ error: 'Error al obtener los datos de la base de datos' });
+        }
+
+        // Crear un nuevo libro de Excel
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Reporte Pendientes');
+        // Agregar encabezados
+        worksheet.columns = [
+            { header: 'nombre', key: 'nombre', width: 30 },
+            { header: 'tipoidentificacion', key: 'tipoidentificacion', width: 20 },
+            { header: 'identificacion', key: 'identificacion', width: 15 },
+            { header: 'celular', key: 'celular', width: 15 },
+            { header: 'diagnostico', key: 'diagnostico', width: 15 },
+            { header: 'modalidad', key: 'modalidad', width: 15 },
+            { header: 'cum', key: 'cum', width: 20 },
+            { header: 'medicamento', key: 'medicamento', width: 30 },
+            { header: 'cantidadprescrita', key: 'cantidadprescrita', width: 20 },
+            { header: 'cantidadentregada', key: 'cantidadentregada', width: 20 },
+            { header: 'cantidadpendiente', key: 'cantidadpendiente', width: 20 },
+            { header: 'fecharegistro', key: 'fecharegistro', width: 20 },
+            { header: 'observacion', key: 'observacion', width: 30 }
+        ];
+        
+
+         // Agregar los datos de la base de datos
+       results.forEach((row) => {
+        worksheet.addRow(row);
+    });
+
+    // Guardar el archivo Excel temporalmente en el servidor
+    const filePath = path.join(__dirname, 'reporte_CyS.xlsx');
+    workbook.xlsx.writeFile(filePath)
+        .then(() => {
+            // Enviar el archivo Excel al cliente
+            res.download(filePath, 'reporte_CyS.xlsx', (err) => {
+                if (err) {
+                    console.error('Error al descargar el archivo:', err);
+                }
+
+                // Eliminar el archivo temporal después de enviarlo
+                fs.unlinkSync(filePath);
+            });
+        })
+        .catch((error) => {
+            console.error('Error al generar el archivo Excel:', error);
+            res.status(500).json({ error: 'Error al generar el archivo Excel' });
+        });
+});
+});
 
 
 // Ruta para descargar el archivo Excel (solo uno)
@@ -964,6 +1031,6 @@ app.get('/descargar-entregados', (req, res) => {
 // ------------------------------ FIN ENTREGADOS ---------------------------------------------
 
     // Iniciar el servidor
-app.listen(7000, () => {
+app.listen(3000, () => {
     console.log('Servidor escuchando en el puerto http://localhost:3000/login.html');
 });

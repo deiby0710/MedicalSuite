@@ -61,8 +61,8 @@
     const queryString = `?username=${encodeURIComponent(username)}&sede=${encodeURIComponent(sede)}&role=${encodeURIComponent(role)}`;
     
     // Asignar los enlaces dinámicamente
-    linkPendientes.href = `http://190.147.27.194:7000/Pendientes/${queryString}`;
-    linkEntregados.href = `http://190.147.27.194:7000/Entregados/${queryString}`;
+    linkPendientes.href = `http://localhost:3000/Pendientes/${queryString}`;
+    linkEntregados.href = `http://localhost:3000/Entregados/${queryString}`;
 
     document.getElementById('logoutButton').addEventListener('click', function() {
         // Hacer una solicitud al servidor para cerrar la sesión
